@@ -1,0 +1,21 @@
+<wpml-config>
+  <admin-texts>
+    <key name="deposits_settings">
+      <key name="regular_notice"/>
+      <key name="deposit_notice"/>
+      <key name="txt_pay_deposit"/>
+      <key name="txt_full_payment"/>
+      <key name="txt_deposit_msg"/>
+      <key name="txt_to_deposit_paid"/>
+      <key name="txt_to_pay"/>
+      <key name="txt_to_deposit"/>
+      <key name="txt_to_due_payment"/>
+      <key name="txt_to_shipping_fee"/>
+      <key name="txt_tooltip_items"/>
+      <key name="txt_tooltip_shipping"/>
+      <key name="txt_tooltip_pay_later"/>
+      <key name="txt_to_deposit_payment_fee"/>
+      <key name="txt_to_due_payment_fee"/>
+    </key>
+  </admin-texts>
+</wpml-config>

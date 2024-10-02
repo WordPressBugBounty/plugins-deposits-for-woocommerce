@@ -1,0 +1,41 @@
+.dfwc-text-field input {
+    width: 300px;
+}
+
+.bayna-review-notice .button-link:hover {
+    background: transparent;
+    color: rgb(92, 1, 92);
+}
+/*
+notice success
+*/
+.ci_updatedb_title {
+    margin-bottom: 6px;
+}
+
+/**
+ * Product options
+ */
+body .bayna-variable-options p.form-field {
+    padding-left: 140px !important;
+}
+body .bayna-variable-options .form-field input[type="text"] {
+    height: 30px !important;
+}
+
+/**
+ * admin order preview
+ */
+.wc-order-preview-deposit {
+    padding: 0 1.5em;
+    padding-bottom: 30px;
+    display: block;
+    overflow: hidden;
+}
+.wc-order-preview-deposit > div {
+    width: 50%;
+    float: left;
+}
+.hide-if-variable {
+    display: none;
+}

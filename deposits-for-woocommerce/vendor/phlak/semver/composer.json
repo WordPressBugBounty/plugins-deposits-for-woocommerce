@@ -1,0 +1,52 @@
+{
+    "name": "phlak/semver",
+    "description": "Semantic versioning helper library",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Chris Kankiewicz",
+            "email": "Chris@ChrisKankiewicz.com"
+        }
+    ],
+    "funding": [
+        {
+            "type": "github",
+            "url": "https://github.com/sponsors/PHLAK"
+        },
+        {
+            "type": "paypal",
+            "url": "https://paypal.me/ChrisKankiewicz"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/PHLAK/SemVer/issues"
+    },
+    "require": {
+        "php": ">=7.2"
+    },
+    "require-dev": {
+        "phlak/coding-standards": "^2.0",
+        "psy/psysh": "^0.11.1",
+        "vimeo/psalm": "^4.3",
+        "yoast/phpunit-polyfills": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "PHLAK\\SemVer\\": "src/"
+        },
+        "files": ["src/Support/helpers.php"]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "PHLAK\\Semver\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "sort-packages": true,
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "composer/package-versions-deprecated": true
+        }
+    }
+}

@@ -1,0 +1,29 @@
+{
+    "name": "codeixer/deposits-for-woocommerce",
+    "description": "Enable customers to pay for products using a deposit or a partial payment.",
+    "type": "woocommerce-plugin",
+    "require": {
+        "collizo4sky/persist-admin-notices-dismissal": "dev-master",
+        "appsero/client": "^1.2.3",
+        "niloys7/remote-admin-notification-client": "dev-main",
+        "blakewilson/wp-enforce-semver": "dev-main"
+    },
+    "license": "GPLv2",
+    "authors": [
+        {
+            "name": "Codeixer",
+            "email": "support@codeixer.com"
+        }
+    ],
+    "autoload": {
+        "files": [
+            "includes/core.php",
+            "includes/codestar/codestar-framework.php",
+            "includes/functions.php"
+        ],
+        "psr-4": {
+            "Deposits_WooCommerce\\": "src/"
+        }
+    },
+    "minimum-stability": "dev"
+}

@@ -1,0 +1,28 @@
+{
+    "name": "blakewilson/wp-enforce-semver",
+    "description": "A class to enforce SemVer in your WordPress plugins.",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Blake Wilson",
+            "email": "blake@blake.id"
+        }
+    ],
+    "require": {
+        "phlak/semver": "^4.1"
+    },
+    "scripts": {
+        "phpcs": "phpcs",
+        "phpcs:fix": "phpcbf"
+    },
+    "autoload": {
+		"psr-4": {
+			"EnforceSemVer\\": "src/"
+		}
+	},
+    "require-dev": {
+        "wp-coding-standards/wpcs": "^2.3",
+        "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+        "phpcompatibility/phpcompatibility-wp": "^2.1"
+    }
+}
