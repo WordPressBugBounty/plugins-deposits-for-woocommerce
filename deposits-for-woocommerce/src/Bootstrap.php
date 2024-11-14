@@ -9,6 +9,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Bootstrap {
+	/**
+	 * The unique instance of the plugin.
+	 */
+	private static $instance;
+
+	/**
+	 * Gets an instance of our plugin.
+	 *
+	 * @return Class Instance.
+	 */
+	public static function init() {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+	/**
+	 * Constructor.
+	 */
 	public function __construct() {
 
 		add_action( 'init', array( $this, 'register_order_type' ) );
@@ -45,13 +65,13 @@ class Bootstrap {
 	}
 	// load plugin classes
 	public function loadClasses() {
-		new Checkout(); // Checkout
-		new Order(); // Checkout
-		new Product(); // Single Product
-		new Cart(); // Cart
-		new Emails(); // Emails
-		new Settings(); // Settings
-		new DepositColums();
+		Checkout::init(); // Checkout
+		Order::init(); // Checkout
+		Product::init(); // Single Product
+		Cart::init(); // Cart
+		Emails::init(); // Emails
+		Settings::init(); // Settings
+		DepositColums::init();
 		new Wcmp();
 
 		$this->set_admin_settings();

@@ -7,6 +7,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Cart {
+	/**
+	 * The unique instance of the plugin.
+	 */
+	private static $instance;
+
+	/**
+	 * Gets an instance of our plugin.
+	 *
+	 * @return Class Instance.
+	 */
+	public static function init() {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+	/**
+	 * Constructor.
+	 */
 	public function __construct() {
 		add_action( 'woocommerce_cart_totals_after_order_total', array( $this, 'to_pay_html' ) );
 		add_filter( 'woocommerce_after_cart_item_name', array( $this, 'display_cart_item_deposit_data' ), 10, 2 );

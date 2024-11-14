@@ -10,7 +10,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class DepositColums {
+	/**
+	 * The unique instance of the plugin.
+	 */
+	private static $instance;
 
+	/**
+	 * Gets an instance of our plugin.
+	 *
+	 * @return Class Instance.
+	 */
+	public static function init() {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+	/**
+	 * Constructor.
+	 */
 	public function __construct() {
 		add_action( 'manage_shop_deposit_posts_custom_column', array( $this, 'shop_deposit_column' ), 10, 2 );
 		add_action( 'woocommerce_shop_deposit_list_table_custom_column', array( $this, 'shop_deposit_column' ), 10, 2 );
@@ -128,7 +147,7 @@ class DepositColums {
 	 */
 	public function render_shop_deposit_columns( $columns ) {
 
-		$columns['deposit']        = __( 'Deposit ID', 'deposits-for-woocommerce' );
+		$columns['deposit']        = __( 'Deposit Payment', 'deposits-for-woocommerce' );
 		$columns['deposit_date']   = __( 'Date', 'deposits-for-woocommerce' );
 		$columns['deposit_status'] = __( 'Status', 'deposits-for-woocommerce' );
 		$columns['total']          = __( 'Total', 'deposits-for-woocommerce' );
@@ -137,7 +156,6 @@ class DepositColums {
 		if ( OrderUtil::custom_orders_table_usage_is_enabled() ) {
 			// HPOS usage is enabled.
 			unset( $columns['order_number'] );
-			unset( $columns['billing_address'] );
 			unset( $columns['shipping_address'] );
 			unset( $columns['order_date'] );
 			unset( $columns['order_status'] );
@@ -170,10 +188,12 @@ class DepositColums {
 		switch ( $column ) {
 
 			case 'deposit':
-				echo '<a href="' . esc_url( admin_url( 'post.php?post=' . $post_id ) . '&action=edit' ) . '" class="order-view"><strong>#' . $depositOrder->get_meta( '_deposit_id' ) . '</strong></a>';
+				$billing_name      = $depositOrder->get_billing_first_name() . ' ' . $depositOrder->get_billing_last_name();
+				$deposit_id_string = '<a href="' . esc_url( admin_url( 'post.php?post=' . $post_id ) . '&action=edit' ) . '" class="order-view"><strong>#' . $depositOrder->get_meta( '_deposit_id' ) . ' ' . $billing_name . '</strong></a>';
+
+				echo apply_filters( 'bayna_deposit_payment_column_id', $deposit_id_string, $depositOrder, $post_id );
 
 				break;
-
 			case 'total':
 				$payment_method        = $depositOrder->get_payment_method();
 				$payment_method_string = '';
@@ -202,7 +222,7 @@ class DepositColums {
 			case 'parent_order':
 				$parentId = $depositOrder->get_parent_id(); // order parent
 
-				echo '<a href="' . esc_url( admin_url( 'post.php?post=' . $parentId ) . '&action=edit' ) . '" class="order-view">' . $parentId . '</a>';
+				echo '<a href="' . esc_url( admin_url( 'post.php?post=' . $parentId ) . '&action=edit' ) . '" class="order-view">#' . $parentId . '</a>';
 
 				break;
 

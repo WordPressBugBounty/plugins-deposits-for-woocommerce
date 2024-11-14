@@ -6,7 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'dac3216348ae0efad290e67f80d57bba' => $vendorDir . '/phlak/semver/src/Support/helpers.php',
     'da5860ba711d54f444a80ff3c9d396ac' => $baseDir . '/includes/core.php',
     '86b2e684bff370884bbdffc57443a161' => $baseDir . '/includes/codestar/codestar-framework.php',
     'a9aa41b2af668a4115390385bcf0d2c4' => $baseDir . '/includes/functions.php',

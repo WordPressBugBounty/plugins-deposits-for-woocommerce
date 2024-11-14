@@ -6,15 +6,15 @@
  * Plugin Name:       Bayna - Deposits for WooCommerce
  * Plugin URI:        https://wordpress.org/plugins/deposits-for-woocommerce/
  * Description:       Enable customers to pay for products using a deposit or a partial payment.
- * Version:           1.3.1
+ * Version:           1.3.2
  * Author:            Codeixer
  * Author URI:        https://codeixer.com
  * Text Domain:       deposits-for-woocommerce
  * Domain Path:       /languages
- * Tested up to: 6.5.3
+ * Tested up to: 6.7
  * Requires at least: 5.5
- * WC requires at least: 4.9
- * WC tested up to: 9.1.2
+ * WC requires at least: 5.0
+ * WC tested up to: 9.4.1
  * Requires PHP: 7.4
  * Requires Plugins: woocommerce
  * @package           deposits-for-woocommerce
@@ -27,13 +27,12 @@
 if ( ! defined( 'WPINC' ) ) {
 	die;
 }
-
+if ( Defined( 'BAYNA_DEPOSITS_PRO_VERSION' ) ) {
+	return;
+}
 require_once ABSPATH . 'wp-admin/includes/plugin.php';
 require __DIR__ . '/vendor/autoload.php';
 
-use EnforceSemVer\EnforceSemVer;
-
-// new EnforceSemVer( 'deposits-for-woocommerce/deposits-for-woocommerce.php' );
 /**
  * Initialize the plugin tracker
  */
@@ -47,7 +46,7 @@ function appsero_init_tracker_deposits_for_woocommerce() {
 
 appsero_init_tracker_deposits_for_woocommerce();
 
-use Deposits_WooCommerce\Product;
+
 use Deposits_WooCommerce\Bootstrap;
 use Deposits_WooCommerce\Modules\Admin;
 
@@ -64,12 +63,15 @@ add_action(
 		}
 	}
 );
+if ( apply_filters( 'bayna_plugin_enable_remote_admin_notice', true ) ) {
 
-NS7_RDNC::instance()->add_notification( 76, '619d32b8e6c5a75f', 'https://www.codeixer.com' );
+	NS7_RDNC::instance()->add_notification( 76, '619d32b8e6c5a75f', 'https://www.codeixer.com' );
+}
+
 /**
  * Define the required plugin constants
  */
-define( 'CIDW_DEPOSITS_VERSION', '1.3.1' );
+define( 'CIDW_DEPOSITS_VERSION', '1.3.2' );
 define( 'CIDW_DEPOSITS_FILE', __FILE__ );
 define( 'CIDW_DEPOSITS_PATH', __DIR__ );
 define( 'CIDW_BASE_FILE', plugin_basename( __FILE__ ) );
@@ -174,7 +176,7 @@ final class Bayna_Free {
 	 * @return void
 	 */
 	public function init_plugin() {
-		new Bootstrap();
+		Bootstrap::init();
 
 		do_action( 'bayna_free_loaded' );
 	}
@@ -205,7 +207,7 @@ final class Bayna_Free {
 	 * @return void
 	 */
 	public function plugin_deactivation() {
-		Product::delete_transients();
+		
 	}
 
 	/**

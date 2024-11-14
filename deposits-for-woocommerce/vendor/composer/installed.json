@@ -58,55 +58,6 @@
             "install-path": "../appsero/client"
         },
         {
-            "name": "blakewilson/wp-enforce-semver",
-            "version": "dev-main",
-            "version_normalized": "dev-main",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/blakewilson/wp-enforce-semver.git",
-                "reference": "e9c1919d14880c181d3520c640705eedeca1fcc6"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/blakewilson/wp-enforce-semver/zipball/e9c1919d14880c181d3520c640705eedeca1fcc6",
-                "reference": "e9c1919d14880c181d3520c640705eedeca1fcc6",
-                "shasum": ""
-            },
-            "require": {
-                "phlak/semver": "^4.1"
-            },
-            "require-dev": {
-                "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
-                "phpcompatibility/phpcompatibility-wp": "^2.1",
-                "wp-coding-standards/wpcs": "^2.3"
-            },
-            "time": "2024-07-07T04:49:12+00:00",
-            "default-branch": true,
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "psr-4": {
-                    "EnforceSemVer\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Blake Wilson",
-                    "email": "blake@blake.id"
-                }
-            ],
-            "description": "A class to enforce SemVer in your WordPress plugins.",
-            "support": {
-                "issues": "https://github.com/blakewilson/wp-enforce-semver/issues",
-                "source": "https://github.com/blakewilson/wp-enforce-semver/tree/main"
-            },
-            "install-path": "../blakewilson/wp-enforce-semver"
-        },
-        {
             "name": "collizo4sky/persist-admin-notices-dismissal",
             "version": "dev-master",
             "version_normalized": "dev-master",
@@ -194,68 +145,6 @@
                 "source": "https://github.com/Niloys7/remote-admin-notification-client/tree/main"
             },
             "install-path": "../niloys7/remote-admin-notification-client"
-        },
-        {
-            "name": "phlak/semver",
-            "version": "4.1.0",
-            "version_normalized": "4.1.0.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/PHLAK/SemVer.git",
-                "reference": "decdb385f26f2f8da2748289534fa3e61347917e"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/PHLAK/SemVer/zipball/decdb385f26f2f8da2748289534fa3e61347917e",
-                "reference": "decdb385f26f2f8da2748289534fa3e61347917e",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=7.2"
-            },
-            "require-dev": {
-                "phlak/coding-standards": "^2.0",
-                "psy/psysh": "^0.11.1",
-                "vimeo/psalm": "^4.3",
-                "yoast/phpunit-polyfills": "^1.0"
-            },
-            "time": "2022-12-23T20:28:04+00:00",
-            "type": "library",
-            "installation-source": "dist",
-            "autoload": {
-                "files": [
-                    "src/Support/helpers.php"
-                ],
-                "psr-4": {
-                    "PHLAK\\SemVer\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Chris Kankiewicz",
-                    "email": "Chris@ChrisKankiewicz.com"
-                }
-            ],
-            "description": "Semantic versioning helper library",
-            "support": {
-                "issues": "https://github.com/PHLAK/SemVer/issues",
-                "source": "https://github.com/PHLAK/SemVer/tree/4.1.0"
-            },
-            "funding": [
-                {
-                    "url": "https://github.com/sponsors/PHLAK",
-                    "type": "github"
-                },
-                {
-                    "url": "https://paypal.me/ChrisKankiewicz",
-                    "type": "paypal"
-                }
-            ],
-            "install-path": "../phlak/semver"
         }
     ],
     "dev": true,

@@ -1,8 +1,6 @@
 <?php
 namespace Deposits_WooCommerce;
 
-use Deposits_WooCommerce\Modules\DeleteCache;
-
 if ( ! defined( 'ABSPATH' ) ) {
 	exit; // Exit if accessed directly.
 }
@@ -12,7 +10,26 @@ class Settings {
 	public $jvmw_plugin_url;
 	public $jvmw_title;
 	public $jvmw_activate;
+	/**
+	 * The unique instance of the plugin.
+	 */
+	private static $instance;
 
+	/**
+	 * Gets an instance of our plugin.
+	 *
+	 * @return Class Instance.
+	 */
+	public static function init() {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+	/**
+	 * Constructor.
+	 */
 	public function __construct() {
 		$this->jvmw_data();
 		$this->pluginOptions();
@@ -132,6 +149,14 @@ class Settings {
 						'dependency' => array( 'global_deposits_mode', '==', 'true' ),
 					),
 					array(
+						'id'    => 'required_login',
+						'type'  => 'switcher',
+						'title' => __( 'Required Login', 'deposits-for-woocommerce' ),
+						'desc'  => __( 'Deposit only be allowed after signing in.', 'deposits-for-woocommerce' ),
+						'class' => 'cix-only-pro',
+
+					),
+					array(
 						'id'          => 'global_deposits_exclude_products',
 						'type'        => 'select',
 						'title'       => __( 'Exclude products', 'deposits-for-woocommerce' ),
@@ -231,6 +256,102 @@ class Settings {
 						'dependency' => array( 'cidw_deposit_reminder_type', '==', 'dynamic' ),
 
 					),
+
+					array(
+						'id'       => 'cidw_payment_subsequent_gateways',
+						'type'     => 'radio',
+						'title'    => __( 'Subsequent Payment Methods', 'deposits-for-woocommerce' ),
+						'default'  => '0',
+						'inline'   => true,
+						'subtitle' => 'Available in <a target="_blank" href="https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro">Pro Version!</a>',
+						'class'    => 'cix-only-pro',
+						'options'  => array(
+							'0'      => __( 'Disable', 'deposits-for-woocommerce' ),
+							'1'      => __( 'Enable', 'deposits-for-woocommerce' ),
+							'custom' => __( 'Specific Payment Methods', 'deposits-for-woocommerce' ),
+						),
+
+						'desc'     => __(
+							'- If the option is disabled, all payment methods will be presented on the deposit checkout page.<br> 
+						- If enabled, payment methods for deposit orders will be deactivated in the same manner as the initial order. "General Settings > Disable Payment Methods"<br> 
+						- When "Specific Payment Methods" is chosen, it allows for the selective activation of specific gateways for future payments.<br>
+						<i> Default: Disable</i>',
+							'deposits-for-woocommerce'
+						),
+					),
+
+				),
+			)
+		);
+		\CSF::createSection(
+			$prefix,
+			array(
+
+				'title'  => 'Checkout Mode',
+				'icon'   => 'fas fa-money-check',
+				'fields' => array(
+					// A Notice
+					array(
+						'type'       => 'subheading',
+						'content'    => 'Product-level deposit calculation is disabled during checkout mode. <a href="https://www.codeixer.com/docs/enable-cart-based-deposit/" target="_blank">Learn More</a>',
+						'class'      => 'cix-only-pro',
+						'dependency' => array( 'checkout_mode', '==', 'true' ),
+					),
+
+					array(
+						'id'       => 'checkout_mode',
+						'type'     => 'switcher',
+						'title'    => __( 'Enable Checkout Mode', 'deposits-for-woocommerce' ),
+						'default'  => '1',
+						'class'    => 'cix-only-pro',
+						'subtitle' => 'Available in <a target="_blank" href="https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro">Pro Version!</a>',
+						'desc'     => __( 'Activate the checkout mode to adjust deposit calculations based on the total amount at checkout rather than on a per-product basis.', 'deposits-for-woocommerce' ),
+
+					),
+					array(
+						'id'         => 'checkout_force_deposit',
+						'type'       => 'switcher',
+						'class'      => 'cix-only-pro',
+						'subtitle'   => 'Available in <a target="_blank" href="https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro">Pro Version!</a>',
+						'title'      => __( 'Force Deposit', 'deposits-for-woocommerce' ),
+						'desc'       => __( 'By activating "Force Deposit" customers will be restricted from making full payments during checkout.', 'deposits-for-woocommerce' ),
+						'dependency' => array( 'checkout_mode', '==', 'true' ),
+
+					),
+					// add selete option for fixed and percentage
+					array(
+						'id'         => 'checkout_deposits_type',
+						'type'       => 'select',
+						'class'      => 'cix-only-pro',
+						'subtitle'   => 'Available in <a target="_blank" href="https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro">Pro Version!</a>',
+						'title'      => __( 'Deposit Type', 'deposits-for-woocommerce' ),
+						'options'    => array(
+							'fixed'      => __( 'Fixed', 'deposits-for-woocommerce' ),
+							'percentage' => __( 'Percentage', 'deposits-for-woocommerce' ),
+						),
+						'dependency' => array( 'checkout_mode', '==', 'true' ),
+					),
+					array(
+						'id'         => 'checkout_deposits_value',
+						'type'       => 'number',
+						'class'      => 'cix-only-pro',
+						'subtitle'   => 'Available in <a target="_blank" href="https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro">Pro Version!</a>',
+						'title'      => __( 'Deposits Value', 'deposits-for-woocommerce' ),
+						'default'    => '50',
+						'desc'       => __( 'The deposit amount should not exceed 99% for percentage deposits or surpass the total order amount for fixed deposits.', 'deposits-for-woocommerce' ),
+						'dependency' => array( 'checkout_mode', '==', 'true' ),
+					),
+
+				),
+			)
+		);
+		\CSF::createSection(
+			$prefix,
+			array(
+
+				'title'  => 'Collection Settings',
+				'icon'   => 'fas fa-hand-holding-usd',
+				'fields' => array(
 
 					array(
 						'id'       => 'exclude_shipping_fee',

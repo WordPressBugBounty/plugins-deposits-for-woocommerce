@@ -5,8 +5,8 @@
     "require": {
         "collizo4sky/persist-admin-notices-dismissal": "dev-master",
         "appsero/client": "^1.2.3",
-        "niloys7/remote-admin-notification-client": "dev-main",
-        "blakewilson/wp-enforce-semver": "dev-main"
+        "niloys7/remote-admin-notification-client": "dev-main"
+       
     },
     "license": "GPLv2",
     "authors": [

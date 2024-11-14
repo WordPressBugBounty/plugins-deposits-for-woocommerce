@@ -14,6 +14,26 @@ class Product {
 	 * @var mixed
 	 */
 	protected $background_dc;
+	/**
+	 * The unique instance of the plugin.
+	 */
+	private static $instance;
+
+	/**
+	 * Gets an instance of our plugin.
+	 *
+	 * @return Class Instance.
+	 */
+	public static function init() {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+	/**
+	 * Constructor.
+	 */
 	public function __construct() {
 		$this->background_dc = new DeleteCache();
 		add_action( 'woocommerce_before_add_to_cart_button', array( $this, 'before_add_to_cart' ), 10 );
@@ -67,7 +87,7 @@ class Product {
 	public function delete_transients_with_prefix( $prefix ) {
 
 		// Process the product IDs in batches
-		$batch_size   = 50; // Number of products in each batch
+		$batch_size   = 30; // Number of products in each batch
 		$keys_batches = array_chunk( $this->get_transient_keys_with_prefix( $prefix ), $batch_size );
 		foreach ( $keys_batches as $batch ) {
 			$this->background_dc->push_to_queue( $batch );

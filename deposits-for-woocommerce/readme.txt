@@ -4,7 +4,7 @@ Tags: deposit,woocommerce deposits,woocommerce partial payment
 Requires at least: 4.9
 Tested up to: 6.6
 Requires PHP: 7.4
-Stable Tag: 1.3.1
+Stable Tag: 1.3.2
 License: GPLv2 or later
 
 
@@ -105,6 +105,14 @@ you can easily override the labels and texts from deposit settings.
 
 
 == Changelog ==
+
+= 1.3.2 - 14 Nov 24 =
+
+* Fixed - [Deposit orders cannot be paid](https://wordpress.org/support/topic/failed-due-payment-cannot-pay/) if the gateway rejects them for the first time.
+* Tweak - Add Singleton Pattern  
+* Added - Filter for modify deposit order ID
+* Added - Filter for remote admin notice
+* Compatibility with WooCommerce 9.4.x
 
 = 1.3.1 - 16 Jul 24 =
 

@@ -6,7 +6,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Checkout {
+	/**
+	 * The unique instance of the plugin.
+	 */
+	private static $instance;
 
+	/**
+	 * Gets an instance of our plugin.
+	 *
+	 * @return Class Instance.
+	 */
+	public static function init() {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+	/**
+	 * Constructor.
+	 */
 	public function __construct() {
 		add_action( 'woocommerce_review_order_after_order_total', array( $this, 'to_pay_html' ) );
 		add_action( 'woocommerce_payment_complete', array( $this, 'manage_deposit_orders' ), 10, 1 );
@@ -22,8 +41,9 @@ class Checkout {
 		add_action( 'woocommerce_checkout_update_order_meta', array( $this, 'manage_order' ), 10, 2 );
 		add_action( 'woocommerce_order_status_completed', array( $this, 'deposits_completed' ), 10, 1 );
 		add_action( 'bayna_all_deposit_payments_paid', array( $this, 'update_parent_order_metadata' ), 10, 1 );
-
+		add_action( 'woocommerce_order_status_failed', array( $this, 'update_child_order_status' ), 10, 1 );
 		do_action( 'wc_deposit_checkout', $this );
+		
 	}
 	/**
 	 * Override default order return url for deposit
@@ -144,13 +164,12 @@ class Checkout {
 			);
 
 			$args = array(
-    			'type'   => 'shop_deposit',
+				'type'   => 'shop_deposit',
 				'parent' => $parentId,
 			);
 
-			$depositList = wc_get_orders( $args );
+			$depositList   = wc_get_orders( $args );
 			$completedList = wc_get_orders( $completedArgs );
-
 
 			if ( count( $completedList ) == count( $depositList ) ) {
 				$parentOrder = wc_get_order( $parentId );
@@ -341,6 +360,30 @@ class Checkout {
 	public function to_pay_html() {
 		if ( cidw_cart_have_deposit_item() ) {
 			cidw_display_to_pay_html();
+		}
+	}
+
+	/**
+	 * Updates the status of a child order if the order type is 'shop_deposit'.
+	 *
+	 * This function retrieves the order by its ID and checks if the order exists.
+	 * If the order type is 'shop_deposit', it updates the order status to 'pending'
+	 * or a status specified by the 'bayna_update_failed_status_for_child_orders' filter.
+	 *
+	 * @hooks `woocommerce_order_status_failed`
+	 * @param int $order_id The ID of the order to update.
+	 */
+	public function update_child_order_status( $order_id ) {
+		$order = wc_get_order( $order_id );
+
+		if ( ! $order ) {
+			return;
+		}
+		if ( 'shop_deposit' === $order->get_type() ) {
+
+			$order->update_status( apply_filters( 'bayna_update_failed_status_for_child_orders', 'pending', $order ) );
+			$order->save();
+
 		}
 	}
 }

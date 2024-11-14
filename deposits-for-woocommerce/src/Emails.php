@@ -7,7 +7,26 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 class Emails {
+	/**
+	 * The unique instance of the plugin.
+	 */
+	private static $instance;
 
+	/**
+	 * Gets an instance of our plugin.
+	 *
+	 * @return Class Instance.
+	 */
+	public static function init() {
+		if ( null === self::$instance ) {
+			self::$instance = new self();
+		}
+
+		return self::$instance;
+	}
+	/**
+	 * Constructor.
+	 */
 	public function __construct() {
 		add_filter( 'woocommerce_email_classes', array( $this, 'email_classes' ) );
 		add_filter( 'woocommerce_email_enabled_new_order', array( $this, 'new_deposit_email' ), 10, 2 );

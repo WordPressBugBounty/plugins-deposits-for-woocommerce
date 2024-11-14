@@ -7,21 +7,12 @@ namespace Composer\Autoload;
 class ComposerStaticInit0736ef2467e3dcdd64f28a7a85c469b2
 {
     public static $files = array (
-        'dac3216348ae0efad290e67f80d57bba' => __DIR__ . '/..' . '/phlak/semver/src/Support/helpers.php',
         'da5860ba711d54f444a80ff3c9d396ac' => __DIR__ . '/../..' . '/includes/core.php',
         '86b2e684bff370884bbdffc57443a161' => __DIR__ . '/../..' . '/includes/codestar/codestar-framework.php',
         'a9aa41b2af668a4115390385bcf0d2c4' => __DIR__ . '/../..' . '/includes/functions.php',
     );
 
     public static $prefixLengthsPsr4 = array (
-        'P' => 
-        array (
-            'PHLAK\\SemVer\\' => 13,
-        ),
-        'E' => 
-        array (
-            'EnforceSemVer\\' => 14,
-        ),
         'D' => 
         array (
             'Deposits_WooCommerce\\' => 21,
@@ -33,14 +24,6 @@ class ComposerStaticInit0736ef2467e3dcdd64f28a7a85c469b2
     );
 
     public static $prefixDirsPsr4 = array (
-        'PHLAK\\SemVer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/phlak/semver/src',
-        ),
-        'EnforceSemVer\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/blakewilson/wp-enforce-semver/src',
-        ),
         'Deposits_WooCommerce\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
