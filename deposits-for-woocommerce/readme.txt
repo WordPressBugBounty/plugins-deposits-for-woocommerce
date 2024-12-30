@@ -1,10 +1,10 @@
 === Deposits & Partial Payments for WooCommerce - Bayna ===
-Contributors: codeixer,im_niloy, brightvesseldev
+Contributors: codeixer,im_niloy
 Tags: deposit,woocommerce deposits,woocommerce partial payment
 Requires at least: 4.9
-Tested up to: 6.6
+Tested up to: 6.7.1
 Requires PHP: 7.4
-Stable Tag: 1.3.2
+Stable Tag: 1.3.3
 License: GPLv2 or later
 
 
@@ -105,6 +105,11 @@ you can easily override the labels and texts from deposit settings.
 
 
 == Changelog ==
+
+= 1.3.3 - 30 Dec 24 =
+
+* Update appsero SDK
+
 
 = 1.3.2 - 14 Nov 24 =
 

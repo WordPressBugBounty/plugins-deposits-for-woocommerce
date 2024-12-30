@@ -123,6 +123,15 @@ class Settings {
 						'label' => __( 'Override shop products by percentage of amount.', 'deposits-for-woocommerce' ),
 
 					),
+					
+					array(
+						'id'         => 'global_deposits_value',
+						'type'       => 'number',
+						'title'      => __( 'Deposits Value', 'deposits-for-woocommerce' ),
+						'desc'       => __( 'Enter the percentage value for deposit.', 'deposits-for-woocommerce' ),
+						'default'    => '50',
+						'dependency' => array( 'global_deposits_mode', '==', 'true' ),
+					),
 					array(
 						'id'         => 'global_force_deposit',
 						'type'       => 'switcher',
@@ -141,13 +150,7 @@ class Settings {
 						'dependency' => array( 'global_deposits_mode', '==', 'true' ),
 
 					),
-					array(
-						'id'         => 'global_deposits_value',
-						'type'       => 'number',
-						'title'      => __( 'Deposits Value', 'deposits-for-woocommerce' ),
-						'desc'       => __( 'Enter the value for deposit.', 'deposits-for-woocommerce' ),
-						'dependency' => array( 'global_deposits_mode', '==', 'true' ),
-					),
+					
 					array(
 						'id'    => 'required_login',
 						'type'  => 'switcher',
@@ -302,7 +305,7 @@ class Settings {
 						'id'       => 'checkout_mode',
 						'type'     => 'switcher',
 						'title'    => __( 'Enable Checkout Mode', 'deposits-for-woocommerce' ),
-						'default'  => '1',
+						'default'  => '0',
 						'class'    => 'cix-only-pro',
 						'subtitle' => 'Available in <a target="_blank" href="https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro">Pro Version!</a>',
 						'desc'     => __( 'Activate the checkout mode to adjust deposit calculations based on the total amount at checkout rather than on a per-product basis.', 'deposits-for-woocommerce' ),
@@ -315,7 +318,7 @@ class Settings {
 						'subtitle'   => 'Available in <a target="_blank" href="https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro">Pro Version!</a>',
 						'title'      => __( 'Force Deposit', 'deposits-for-woocommerce' ),
 						'desc'       => __( 'By activating "Force Deposit" customers will be restricted from making full payments during checkout.', 'deposits-for-woocommerce' ),
-						'dependency' => array( 'checkout_mode', '==', 'true' ),
+						
 
 					),
 					// add selete option for fixed and percentage
@@ -329,7 +332,7 @@ class Settings {
 							'fixed'      => __( 'Fixed', 'deposits-for-woocommerce' ),
 							'percentage' => __( 'Percentage', 'deposits-for-woocommerce' ),
 						),
-						'dependency' => array( 'checkout_mode', '==', 'true' ),
+						
 					),
 					array(
 						'id'         => 'checkout_deposits_value',
@@ -339,7 +342,7 @@ class Settings {
 						'title'      => __( 'Deposits Value', 'deposits-for-woocommerce' ),
 						'default'    => '50',
 						'desc'       => __( 'The deposit amount should not exceed 99% for percentage deposits or surpass the total order amount for fixed deposits.', 'deposits-for-woocommerce' ),
-						'dependency' => array( 'checkout_mode', '==', 'true' ),
+						
 					),
 
 				),

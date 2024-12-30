@@ -3,7 +3,7 @@
         'name' => 'codeixer/deposits-for-woocommerce',
         'pretty_version' => '2.0.4.x-dev',
         'version' => '2.0.4.9999999-dev',
-        'reference' => '3e34d92dcd92921a8c39471fd03c3c33e593e2d8',
+        'reference' => '939c390f01fe0658160e3cfa8ce781b83f81bf70',
         'type' => 'woocommerce-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -11,9 +11,9 @@
     ),
     'versions' => array(
         'appsero/client' => array(
-            'pretty_version' => 'v1.4.0',
-            'version' => '1.4.0.0',
-            'reference' => '43289d79f1d55de687f667b17a2834b986cc7b6e',
+            'pretty_version' => 'v2.0.4',
+            'version' => '2.0.4.0',
+            'reference' => '12ff65b9770286d21edf314e7acfcd26fdde3315',
             'type' => 'library',
             'install_path' => __DIR__ . '/../appsero/client',
             'aliases' => array(),
@@ -22,7 +22,7 @@
         'codeixer/deposits-for-woocommerce' => array(
             'pretty_version' => '2.0.4.x-dev',
             'version' => '2.0.4.9999999-dev',
-            'reference' => '3e34d92dcd92921a8c39471fd03c3c33e593e2d8',
+            'reference' => '939c390f01fe0658160e3cfa8ce781b83f81bf70',
             'type' => 'woocommerce-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),
