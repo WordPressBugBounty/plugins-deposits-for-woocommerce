@@ -6,7 +6,7 @@
  * Plugin Name:       Bayna - Deposits for WooCommerce
  * Plugin URI:        https://wordpress.org/plugins/deposits-for-woocommerce/
  * Description:       Enable customers to pay for products using a deposit or a partial payment.
- * Version:           1.3.3
+ * Version:           1.3.4
  * Author:            Codeixer
  * Author URI:        https://codeixer.com
  * Text Domain:       deposits-for-woocommerce
@@ -14,7 +14,7 @@
  * Tested up to: 6.7
  * Requires at least: 5.5
  * WC requires at least: 5.0
- * WC tested up to: 9.5.1
+ * WC tested up to: 9.6
  * Requires PHP: 7.4
  * Requires Plugins: woocommerce
  * @package           deposits-for-woocommerce
@@ -36,9 +36,10 @@ require __DIR__ . '/vendor/autoload.php';
 /**
  * Initialize the plugin tracker
  */
+require __DIR__ . '/includes/usage-tracking/Client.php';
 function appsero_init_tracker_deposits_for_woocommerce() {
 
-	$client = new Appsero\Client( '5379e35c-ac97-4062-9202-8b440ef724ac', 'Bayna - Deposits for WooCommerce', __FILE__ );
+	$client = new NS7_UT\Client( '5379e35c-ac97-4062-9202-8b440ef724ac', 'Bayna - Deposits for WooCommerce', __FILE__ );
 
 	// Active insights
 	$client->insights()->init();
@@ -71,7 +72,7 @@ if ( apply_filters( 'bayna_plugin_enable_remote_admin_notice', true ) ) {
 /**
  * Define the required plugin constants
  */
-define( 'CIDW_DEPOSITS_VERSION', '1.3.3' );
+define( 'CIDW_DEPOSITS_VERSION', '1.3.4' );
 define( 'CIDW_DEPOSITS_FILE', __FILE__ );
 define( 'CIDW_DEPOSITS_PATH', __DIR__ );
 define( 'CIDW_BASE_FILE', plugin_basename( __FILE__ ) );

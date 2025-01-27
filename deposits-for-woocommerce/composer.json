@@ -4,7 +4,7 @@
     "type": "woocommerce-plugin",
     "require": {
         "collizo4sky/persist-admin-notices-dismissal": "dev-master",
-        "appsero/client": "^2.0",
+        
         "niloys7/remote-admin-notification-client": "dev-main"
        
     },

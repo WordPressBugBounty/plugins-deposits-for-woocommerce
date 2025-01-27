@@ -39,3 +39,13 @@ body .bayna-variable-options .form-field input[type="text"] {
 .hide-if-variable {
     display: none;
 }
+a.csf-email-templates,
+div.csf-email-templates {
+    display: block;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    margin-bottom: 10px;
+    text-decoration: none;
+    width: 350px;
+    text-transform: capitalize;
+}

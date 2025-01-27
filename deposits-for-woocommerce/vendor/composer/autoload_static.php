@@ -17,20 +17,12 @@ class ComposerStaticInit0736ef2467e3dcdd64f28a7a85c469b2
         array (
             'Deposits_WooCommerce\\' => 21,
         ),
-        'A' => 
-        array (
-            'Appsero\\' => 8,
-        ),
     );
 
     public static $prefixDirsPsr4 = array (
         'Deposits_WooCommerce\\' => 
         array (
             0 => __DIR__ . '/../..' . '/src',
-        ),
-        'Appsero\\' => 
-        array (
-            0 => __DIR__ . '/..' . '/appsero/client/src',
         ),
     );
 

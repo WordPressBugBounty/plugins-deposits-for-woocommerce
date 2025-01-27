@@ -31,7 +31,7 @@ class Admin {
 		}
 
 		add_action( 'admin_enqueue_scripts', array( $this, 'adminScripts' ) );
-		add_action( 'csf_options_after', array( $this, 'update_notice_option' ) );
+		add_action( 'csf_options_before', array( $this, 'update_notice_option' ) );
 		add_action( 'admin_notices', array( $this, 'baynaReview' ) );
 		add_action( 'admin_init', array( $this, 'urlParamCheck' ) );
 		add_action( 'admin_init', array( 'PAnD', 'init' ) );
@@ -72,7 +72,7 @@ class Admin {
 		if ( 'codeixer_page_deposits_settings' != $currentScreen->id ) {
 			return;
 		}
-		echo '<a class="cit-admin-pro-notice" href="https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro" target="_blank"><p>Missing anything? Discover more powerful features in the premium version now!</p> <span>I\'m interested</span></a>';
+		echo '<a class="cit-admin-pro-notice" target="_" href="https://www.codeixer.com/woocommerce-deposits-plugin/?utm_source=settings_page&utm_medium=top_banner&utm_campaign=ltd" target="_blank"><div><p>Is something missing? Uncover even more powerful features by upgrading to the premium version today!</p><small>✨ Secure the lifetime deal at a discounted price before it\'s too late! (save up to $240.00)</small> </div><span>I\'m interested</span></a>';
 		
 	}
 

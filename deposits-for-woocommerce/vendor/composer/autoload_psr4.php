@@ -7,5 +7,4 @@ $baseDir = dirname($vendorDir);
 
 return array(
     'Deposits_WooCommerce\\' => array($baseDir . '/src'),
-    'Appsero\\' => array($vendorDir . '/appsero/client/src'),
 );

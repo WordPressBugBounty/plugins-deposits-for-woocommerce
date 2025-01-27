@@ -10,6 +10,7 @@ class Settings {
 	public $jvmw_plugin_url;
 	public $jvmw_title;
 	public $jvmw_activate;
+	protected $text_disabled = '__disabled';
 	/**
 	 * The unique instance of the plugin.
 	 */
@@ -34,6 +35,50 @@ class Settings {
 		$this->jvmw_data();
 		$this->pluginOptions();
 		add_action( 'csf_deposits_settings_save_after', array( $this, 'save_after' ) );
+	}
+	/**
+	 * Generates premiun row disabled for email templates tab
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return void
+	 */
+	public function generate_premium_row_disabled_for_email_templates_tab( $template_name ) {
+
+		?><div class="csf-email-templates  cix-only-pro" style="color: black;cursor: not-allowed;" href='#'>
+			<div><?php echo $template_name; ?></div>
+			<div class="csf-subtitle-text">
+				Available in <a style="text-decoration: none;" href='https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro'>Pro Version! <i class='fas fa-lock'></i></a>
+			</div>
+		</div>
+		<?php
+	}
+	/**
+	 * This function generates all the content for the Email Templates tab within the plugin settings
+	 *
+	 * @since 2.0.0
+	 *
+	 * @return void
+	 */
+	public function email_list() {
+
+		$templates = array(
+			'wc_new_deposit_alert'      => 'New Deposit - Admin',
+			'wc_customer_deposit_alert' => 'Deposit Order - Customer',
+			'wc_deposit_full_paid'      => 'Deposit Paid - Customer',
+			'wc_deposit_full_paid'      => 'Deposit Full Paid - Admin',
+			'wc_customer_deposit_reminder' . $this->text_disabled => 'Deposit Reminder - Customers',
+
+		);
+		foreach ( $templates as $key => $template_name ) {
+
+			if ( strpos( $key, $this->text_disabled ) !== false ) {
+				$this->generate_premium_row_disabled_for_email_templates_tab( $template_name );
+				continue;
+			}
+
+			echo '<a class="csf-email-templates" href="' . esc_url( admin_url( 'admin.php?page=wc-settings&tab=email&section=' . $key ) ) . '">' . $template_name . '</a>';
+		}
 	}
 	public function save_after( $data ) {
 
@@ -98,6 +143,7 @@ class Settings {
 				'icon'   => 'fas fa-sliders-h',
 				'fields' => array(
 					// A Notice
+					
 					array(
 						'type'    => 'submessage',
 						'style'   => 'info',
@@ -116,6 +162,7 @@ class Settings {
 						),
 						'default' => 'only_deposits',
 					),
+
 					array(
 						'id'    => 'global_deposits_mode',
 						'type'  => 'switcher',
@@ -123,7 +170,7 @@ class Settings {
 						'label' => __( 'Override shop products by percentage of amount.', 'deposits-for-woocommerce' ),
 
 					),
-					
+
 					array(
 						'id'         => 'global_deposits_value',
 						'type'       => 'number',
@@ -150,13 +197,28 @@ class Settings {
 						'dependency' => array( 'global_deposits_mode', '==', 'true' ),
 
 					),
-					
 					array(
-						'id'    => 'required_login',
-						'type'  => 'switcher',
-						'title' => __( 'Required Login', 'deposits-for-woocommerce' ),
-						'desc'  => __( 'Deposit only be allowed after signing in.', 'deposits-for-woocommerce' ),
-						'class' => 'cix-only-pro',
+
+						'id'       => 'deposit_charge_method',
+						'type'     => 'select',
+						'title'    => __( 'Deposit Charge Method', 'deposits-for-woocommerce' ),
+						'default'  => 'only_deposit',
+						'options'  => array(
+							'only_deposit'    => __( 'Only deposit product amount', 'deposits-for-woocommerce' ),
+							'full_cart_total' => __( 'Full cart total amount', 'deposits-for-woocommerce' ),
+						),
+						'desc'     => 'If you choose "Only deposit product amount," the deposit will be determined solely by the product\'s deposit amount, while the amounts for regular items will be included in future deposit orders.<br> Conversely, if you select "Full cart total amount," the deposit will include both the product deposit amount and the prices of other regular items.',
+						'class'    => 'cix-only-pro',
+						'subtitle' => 'Available in <a target="_blank" href="https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro">Pro Version!</a>',
+
+					),
+					array(
+						'id'       => 'required_login',
+						'type'     => 'switcher',
+						'title'    => __( 'Required Login', 'deposits-for-woocommerce' ),
+						'desc'     => __( 'Deposit only be allowed after signing in.', 'deposits-for-woocommerce' ),
+						'class'    => 'cix-only-pro',
+						'subtitle' => 'Available in <a target="_blank" href="https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro">Pro Version!</a>',
 
 					),
 					array(
@@ -295,10 +357,9 @@ class Settings {
 				'fields' => array(
 					// A Notice
 					array(
-						'type'       => 'subheading',
-						'content'    => 'Product-level deposit calculation is disabled during checkout mode. <a href="https://www.codeixer.com/docs/enable-cart-based-deposit/" target="_blank">Learn More</a>',
-						'class'      => 'cix-only-pro',
-						'dependency' => array( 'checkout_mode', '==', 'true' ),
+						'type'    => 'submessage',
+						'style'   => 'warning',
+						'content' => 'Enable deposit only for checkout page instead of product page. <a href="https://www.codeixer.com/docs/enable-cart-based-deposit?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro" target="_blank">Learn More</a>',
 					),
 
 					array(
@@ -312,37 +373,36 @@ class Settings {
 
 					),
 					array(
-						'id'         => 'checkout_force_deposit',
-						'type'       => 'switcher',
-						'class'      => 'cix-only-pro',
-						'subtitle'   => 'Available in <a target="_blank" href="https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro">Pro Version!</a>',
-						'title'      => __( 'Force Deposit', 'deposits-for-woocommerce' ),
-						'desc'       => __( 'By activating "Force Deposit" customers will be restricted from making full payments during checkout.', 'deposits-for-woocommerce' ),
-						
+						'id'       => 'checkout_force_deposit',
+						'type'     => 'switcher',
+						'class'    => 'cix-only-pro',
+						'subtitle' => 'Available in <a target="_blank" href="https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro">Pro Version!</a>',
+						'title'    => __( 'Force Deposit', 'deposits-for-woocommerce' ),
+						'desc'     => __( 'By activating "Force Deposit" customers will be restricted from making full payments during checkout.', 'deposits-for-woocommerce' ),
 
 					),
 					// add selete option for fixed and percentage
 					array(
-						'id'         => 'checkout_deposits_type',
-						'type'       => 'select',
-						'class'      => 'cix-only-pro',
-						'subtitle'   => 'Available in <a target="_blank" href="https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro">Pro Version!</a>',
-						'title'      => __( 'Deposit Type', 'deposits-for-woocommerce' ),
-						'options'    => array(
+						'id'       => 'checkout_deposits_type',
+						'type'     => 'select',
+						'class'    => 'cix-only-pro',
+						'subtitle' => 'Available in <a target="_blank" href="https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro">Pro Version!</a>',
+						'title'    => __( 'Deposit Type', 'deposits-for-woocommerce' ),
+						'options'  => array(
 							'fixed'      => __( 'Fixed', 'deposits-for-woocommerce' ),
 							'percentage' => __( 'Percentage', 'deposits-for-woocommerce' ),
 						),
-						
+
 					),
 					array(
-						'id'         => 'checkout_deposits_value',
-						'type'       => 'number',
-						'class'      => 'cix-only-pro',
-						'subtitle'   => 'Available in <a target="_blank" href="https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro">Pro Version!</a>',
-						'title'      => __( 'Deposits Value', 'deposits-for-woocommerce' ),
-						'default'    => '50',
-						'desc'       => __( 'The deposit amount should not exceed 99% for percentage deposits or surpass the total order amount for fixed deposits.', 'deposits-for-woocommerce' ),
-						
+						'id'       => 'checkout_deposits_value',
+						'type'     => 'number',
+						'class'    => 'cix-only-pro',
+						'subtitle' => 'Available in <a target="_blank" href="https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro">Pro Version!</a>',
+						'title'    => __( 'Deposits Value', 'deposits-for-woocommerce' ),
+						'default'  => '50',
+						'desc'     => __( 'The deposit amount should not exceed 99% for percentage deposits or surpass the total order amount for fixed deposits.', 'deposits-for-woocommerce' ),
+
 					),
 
 				),
@@ -404,6 +464,27 @@ class Settings {
 
 				),
 			)
+		);
+		// Email Tempaltes
+		\CSF::createSection(
+			$prefix,
+			array(
+				'title'  => __( 'Email Templates', 'deposits-for-woocommerce' ),
+				'icon'   => 'fas fa-envelope',
+				'fields' => array(
+
+					// A Callback Field Example
+					array(
+						'type'     => 'callback',
+						'function' => array( $this, 'email_list' ),
+					),
+					array(
+						'type'    => 'submessage',
+						'style'   => 'warning',
+						'content' => 'Need to translate email templates in a different language? <a href="https://www.codeixer.com/docs/translation-using-loco-translate?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro" target="_blank">Learn More</a>',
+					),
+				),
+			),
 		);
 		// Create a section
 		\CSF::createSection(

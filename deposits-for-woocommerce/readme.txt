@@ -4,7 +4,7 @@ Tags: deposit,woocommerce deposits,woocommerce partial payment
 Requires at least: 4.9
 Tested up to: 6.7.1
 Requires PHP: 7.4
-Stable Tag: 1.3.3
+Stable Tag: 1.3.4
 License: GPLv2 or later
 
 
@@ -105,6 +105,10 @@ you can easily override the labels and texts from deposit settings.
 
 
 == Changelog ==
+
+= 1.3.4 - 27 Jan 25 =
+
+* Bug fixes & improvements
 
 = 1.3.3 - 30 Dec 24 =
 

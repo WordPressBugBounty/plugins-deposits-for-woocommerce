@@ -59,26 +59,26 @@ class Emails {
 			<table border="0" cellpadding="20" cellspacing="0" style="width:100%; margin-bottom:15px">
 				<thead>
 				<tr>
-					<th class="td" style="color: #636363; border: 1px solid #e5e5e5; vertical-align: middle; padding: 12px;"><?php esc_html_e( 'Payment ID', 'deposits-for-woocommerce' ); ?> </th>
-					<th class="td" style="color: #636363; border: 1px solid #e5e5e5; vertical-align: middle; padding: 12px;"><?php esc_html_e( 'Status', 'deposits-for-woocommerce' ); ?> </th>
-					<th class="td" style="color: #636363; border: 1px solid #e5e5e5; vertical-align: middle; padding: 12px;"><?php esc_html_e( 'Amount', 'deposits-for-woocommerce' ); ?> </th>
-					<th class="td" style="color: #636363; border: 1px solid #e5e5e5; vertical-align: middle; padding: 12px;"><?php esc_html_e( 'Order', 'deposits-for-woocommerce' ); ?> </th>
+					<th class="td"><?php esc_html_e( 'Payment ID', 'deposits-for-woocommerce' ); ?> </th>
+					<th class="td"><?php esc_html_e( 'Status', 'deposits-for-woocommerce' ); ?> </th>
+					<th class="td"><?php esc_html_e( 'Amount', 'deposits-for-woocommerce' ); ?> </th>
+					<th class="td"><?php esc_html_e( 'Order', 'deposits-for-woocommerce' ); ?> </th>
 				</tr>
 				</thead>
 				<tbody>
 				<?php $depositOrder = new ShopDeposit( $order->get_id() ); ?>
 					<tr class="order_item">
-						<td class="td" style="color: #636363; border: 1px solid #e5e5e5; vertical-align: middle; padding: 12px;">
-						<?php echo '<strong>#' .$order->get_meta( '_deposit_id' ) . '</strong>'; ?>
+						<td class="td">
+						<?php echo '<strong>#' . $order->get_meta( '_deposit_id' ) . '</strong>'; ?>
 						</td>
-						<td class="td" style="color: #636363; border: 1px solid #e5e5e5; vertical-align: middle; padding: 12px;">
+						<td class="td">
 						<?php $depositStatus = $depositOrder->get_status(); // order status ?>
 						<?php echo wc_get_order_status_name( $depositStatus ); ?>
 						</td>
-						<td class="td" style="color: #636363; border: 1px solid #e5e5e5; vertical-align: middle; padding: 12px;">
+						<td class="td">
 						<?php echo wc_price( $depositOrder->get_total() ); ?>
 						</td>
-						<td class="td" style="color: #636363; border: 1px solid #e5e5e5; vertical-align: middle; padding: 12px;">
+						<td class="td">
 						<?php $parentOrder = wc_get_order( $depositOrder->get_parent_id() ); ?>
 						<?php echo '<a href="' . $parentOrder->get_view_order_url() . '">' . $depositOrder->get_parent_id() . '</a>'; ?>
 						</td>
@@ -178,7 +178,7 @@ class Emails {
 	 * @param $orderId
 	 */
 	public function deposit_offline_notification( $orderId ) {
-		$order                       = wc_get_order( $orderId );
+		$order                      = wc_get_order( $orderId );
 		$payment_method             = $order->get_payment_method();
 		$offline_payment_gatway_ids = array( 'bacs', 'cheque', 'cod' ); // TODO: add_filter for overiide 2rd party gatways
 

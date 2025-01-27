@@ -127,6 +127,7 @@ class Cart {
 			$deposit_amount  += ( cidw_is_product_type_deposit( $vProductId ) && isset( $cart_item['_deposit_mode'] ) && 'check_deposit' == $cart_item['_deposit_mode'] ) ? $cart_item['_deposit'] * $cart_item['quantity'] : null;
 			$due_amount      += ( cidw_is_product_type_deposit( $vProductId ) && isset( $cart_item['_deposit_mode'] ) && 'check_deposit' == $cart_item['_deposit_mode'] ) ? $cart_item['_due_payment'] : null;
 			$cart_item_total += $cart_item['line_subtotal'] * $cart_item['quantity'];
+			
 		}
 
 		return $total - $due_amount;
