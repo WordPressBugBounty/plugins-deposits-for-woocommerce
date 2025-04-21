@@ -43,7 +43,6 @@ class Checkout {
 		add_action( 'bayna_all_deposit_payments_paid', array( $this, 'update_parent_order_metadata' ), 10, 1 );
 		add_action( 'woocommerce_order_status_failed', array( $this, 'update_child_order_status' ), 10, 1 );
 		do_action( 'wc_deposit_checkout', $this );
-		
 	}
 	/**
 	 * Override default order return url for deposit

@@ -49,7 +49,7 @@ class Admin {
 		$this->updateDB        = get_option( 'bayna_run_update' );
 		$this->updateCompleted = get_option( 'bayna_update_completed' );
 	}
-	
+
 	// Run DB update
 	function run_update() {
 		$this->db_task = new UpdateDB();
@@ -73,7 +73,6 @@ class Admin {
 			return;
 		}
 		echo '<a class="cit-admin-pro-notice" target="_" href="https://www.codeixer.com/woocommerce-deposits-plugin/?utm_source=settings_page&utm_medium=top_banner&utm_campaign=ltd" target="_blank"><div><p>Is something missing? Uncover even more powerful features by upgrading to the premium version today!</p><small>✨ Secure the lifetime deal at a discounted price before it\'s too late! (save up to $240.00)</small> </div><span>I\'m interested</span></a>';
-		
 	}
 
 	/**

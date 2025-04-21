@@ -65,7 +65,7 @@ class Settings {
 		$templates = array(
 			'wc_new_deposit_alert'      => 'New Deposit - Admin',
 			'wc_customer_deposit_alert' => 'Deposit Order - Customer',
-			'wc_deposit_full_paid'      => 'Deposit Paid - Customer',
+			'wc_customer_deposit_order' => 'Deposit Paid - Customer',
 			'wc_deposit_full_paid'      => 'Deposit Full Paid - Admin',
 			'wc_customer_deposit_reminder' . $this->text_disabled => 'Deposit Reminder - Customers',
 
@@ -143,7 +143,7 @@ class Settings {
 				'icon'   => 'fas fa-sliders-h',
 				'fields' => array(
 					// A Notice
-					
+
 					array(
 						'type'    => 'submessage',
 						'style'   => 'info',

@@ -33,13 +33,13 @@ class Bootstrap {
 
 		add_action( 'init', array( $this, 'register_order_type' ) );
 		add_action( 'init', array( $this, 'override_hooks' ) );
-		
+
 		add_action( 'woocommerce_register_shop_order_post_statuses', array( $this, 'shop_order_status' ), 10, 1 );
 		add_filter( 'wc_order_statuses', array( $this, 'shows_order_status' ) );
 		add_filter( 'woocommerce_locate_template', array( $this, 'plugin_template' ), 20, 3 );
 		add_action( 'wp_ajax_variation_toggle', array( $this, 'variation_toggle' ) );
 		add_action( 'wp_ajax_nopriv_variation_toggle', array( $this, 'variation_toggle' ) );
-		
+
 		add_filter( 'semantic_versioning_notice_text', array( $this, 'disable_auto_update_msg' ), 20, 2 );
 		$this->loadClasses();
 	}
@@ -51,7 +51,7 @@ class Bootstrap {
 
 		return $notice_text;
 	}
-	
+
 	// load plugin classes
 	public function loadClasses() {
 		Checkout::init(); // Checkout

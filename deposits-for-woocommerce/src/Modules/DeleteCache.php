@@ -16,7 +16,7 @@ class DeleteCache extends \WC_Background_Process {
 	 */
 	protected $db;
 	public function __construct() {
-		
+
 		parent::__construct();
 	}
 	/**
@@ -35,7 +35,7 @@ class DeleteCache extends \WC_Background_Process {
 	 * @return bool
 	 */
 	protected function task( $batch ) {
-	
+
 		foreach ( $batch as $key ) {
 			delete_transient( $key );
 		}
