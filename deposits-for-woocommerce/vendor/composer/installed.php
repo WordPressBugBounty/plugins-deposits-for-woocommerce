@@ -3,7 +3,7 @@
         'name' => 'codeixer/deposits-for-woocommerce',
         'pretty_version' => '2.0.4.x-dev',
         'version' => '2.0.4.9999999-dev',
-        'reference' => '47b69dc85a23b2f882e7ff2bb9de7cf3d873bdbe',
+        'reference' => '8a7f0d5e1cb255082611addc5cb4d7bba98cddc7',
         'type' => 'woocommerce-plugin',
         'install_path' => __DIR__ . '/../../',
         'aliases' => array(),
@@ -13,7 +13,7 @@
         'codeixer/deposits-for-woocommerce' => array(
             'pretty_version' => '2.0.4.x-dev',
             'version' => '2.0.4.9999999-dev',
-            'reference' => '47b69dc85a23b2f882e7ff2bb9de7cf3d873bdbe',
+            'reference' => '8a7f0d5e1cb255082611addc5cb4d7bba98cddc7',
             'type' => 'woocommerce-plugin',
             'install_path' => __DIR__ . '/../../',
             'aliases' => array(),

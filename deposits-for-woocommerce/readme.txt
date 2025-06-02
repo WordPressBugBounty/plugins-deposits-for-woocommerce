@@ -4,7 +4,7 @@ Tags: deposit, woocommerce deposits, partial payment,WooCommerce
 Requires at least: 4.9
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable Tag: 1.3.5
+Stable Tag: 1.3.5.1
 License: GPLv2 or later
 
 WooCommerce Deposits & Partial Payments allows customers to pay for products using a partial payment.💰
@@ -93,7 +93,7 @@ Start using The Ultimate WooCommerce Deposits & Partial Payment Plugin today and
 
 [__Upgrade To Pro »__](https://www.codeixer.com/woocommerce-deposits-plugin/?utm_source=wp&utm_medium=site&utm_campaign=free_plugin) | [__Documentation__](https://www.codeixer.com/docs-category/bayna-woocommerce-deposit/)
 
-📆 [__Payment Plans__](https://www.codeixer.com/docs/deposit-payment-plans/)** – Offer structured deposit payment plans, such as installments, to allow flexibility for customers.
+📆 [__Payment Plans__](https://www.codeixer.com/docs/deposit-payment-plans/) – Offer structured deposit payment plans, such as installments, to allow flexibility for customers.
 
 💵 [__Custom Deposit Amount__](https://www.codeixer.com/docs/allow-custom-amount-payments-for-deposits/) – Let customers pay a different amount instead of the full deposit. 
 
@@ -182,6 +182,10 @@ you can easily override the labels and texts from deposit settings.
 
 
 == Changelog ==
+
+= 1.3.5.1 - 1 Jun 25 =
+
+* Fixed: Function `_load_textdomain_just_in_time` was called incorrectly.
 
 = 1.3.5 - 22 Apr 25 =
 
