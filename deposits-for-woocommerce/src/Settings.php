@@ -191,6 +191,43 @@ class Settings {
 						'dependency' => array( 'global_deposits_mode', '==', 'true' ),
 
 					),
+
+					array(
+						'id'      => 'required_login',
+						'type'    => 'switcher',
+						'title'   => 'Required Login',
+						'desc'    => 'Deposit only be allowed after signing in.',
+						'default' => '0',
+
+					),
+
+					array(
+
+						'id'      => 'predefine_full_payment',
+						'type'    => 'select',
+						'title'   => 'Default Selection',
+						'default' => '0',
+						'options' => array(
+							'0' => 'Pay Deposit',
+							'1' => 'Full Payment',
+						),
+
+					),
+
+					array(
+						'id'      => 'bayna_fully_paid_status',
+						'type'    => 'select',
+						'default' => 'wc-completed',
+						'options' => 'bayna_order_status',
+						'title'   => 'Deposit Paid Status',
+						'desc'    => 'set order status when deposits are paid',
+					),
+					array(
+						'id'      => 'cidw_payment_gateway',
+						'type'    => 'checkbox',
+						'title'   => 'Disable Payment Methods	',
+						'options' => 'cidw_payment_gateway_list',
+					),
 					array(
 
 						'id'       => 'deposit_charge_method',
@@ -202,15 +239,6 @@ class Settings {
 							'full_cart_total' => 'Full cart total amount',
 						),
 						'desc'     => 'If you choose "Only deposit product amount," the deposit will be determined solely by the product\'s deposit amount, while the amounts for regular items will be included in future deposit orders.<br> Conversely, if you select "Full cart total amount," the deposit will include both the product deposit amount and the prices of other regular items.',
-						'class'    => 'cix-only-pro',
-						'subtitle' => 'Available in <a target="_blank" href="https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro">Pro Version!</a>',
-
-					),
-					array(
-						'id'       => 'required_login',
-						'type'     => 'switcher',
-						'title'    => 'Required Login',
-						'desc'     => 'Deposit only be allowed after signing in.',
 						'class'    => 'cix-only-pro',
 						'subtitle' => 'Available in <a target="_blank" href="https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro">Pro Version!</a>',
 
@@ -229,21 +257,9 @@ class Settings {
 
 					),
 					array(
-
-						'id'      => 'predefine_full_payment',
-						'type'    => 'select',
-						'title'   => 'Default Selection',
-						'default' => '0',
-						'options' => array(
-							'0' => 'Pay Deposit',
-							'1' => 'Full Payment',
-						),
-
-					),
-					array(
 						'id'       => 'variable_product_mode',
 						'type'     => 'select',
-						'title'    => 'Deposit for Variable Products',
+						'title'    => 'Deposit Options for Variable Products',
 						'default'  => 'parent',
 						'class'    => 'cix-only-pro',
 						'subtitle' => 'Available in <a target="_blank" href="https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro">Pro Version!</a>',
@@ -252,21 +268,6 @@ class Settings {
 							'parent' => 'All variations are overridden with parent deposit options',
 						),
 					),
-					array(
-						'id'      => 'bayna_fully_paid_status',
-						'type'    => 'select',
-						'default' => 'wc-completed',
-						'options' => 'bayna_order_status',
-						'title'   => 'Deposit Paid Status',
-						'desc'    => 'set order status when deposits are paid',
-					),
-					array(
-						'id'      => 'cidw_payment_gateway',
-						'type'    => 'checkbox',
-						'title'   => 'Disable Payment Methods	',
-						'options' => 'cidw_payment_gateway_list',
-					),
-
 				),
 			)
 		);
@@ -330,11 +331,11 @@ class Settings {
 							'custom' => 'Specific Payment Methods',
 						),
 
-						'desc'     => 
+						'desc'     =>
 							'- If the option is disabled, all payment methods will be presented on the deposit checkout page.<br> 
 						- If enabled, payment methods for deposit orders will be deactivated in the same manner as the initial order. "General Settings > Disable Payment Methods"<br> 
 						- When "Specific Payment Methods" is chosen, it allows for the selective activation of specific gateways for future payments.<br>
-						<i> Default: Disable</i>'
+						<i> Default: Disable</i>',
 					),
 
 				),

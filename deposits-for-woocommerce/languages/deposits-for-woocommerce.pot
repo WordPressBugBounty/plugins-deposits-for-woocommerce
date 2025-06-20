@@ -2,14 +2,14 @@
 # This file is distributed under the same license as the Deposits & Partial Payments for WooCommerce – Bayna plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Deposits & Partial Payments for WooCommerce – Bayna 1.3.5.1\n"
+"Project-Id-Version: Deposits & Partial Payments for WooCommerce – Bayna 1.3.6\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/deposits-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-05-30T17:06:32+00:00\n"
+"POT-Creation-Date: 2025-06-20T20:37:23+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.11.0\n"
 "X-Domain: deposits-for-woocommerce\n"
@@ -39,21 +39,21 @@ msgstr ""
 msgid "https://codeixer.com"
 msgstr ""
 
-#: deposits-for-woocommerce.php:110
+#: deposits-for-woocommerce.php:112
 msgid "Oops! looks like WooCommerce is disabled. Please, enable it in order to use Bayna - Deposits & Partial Payments for WooCommerce."
 msgstr ""
 
-#: deposits-for-woocommerce.php:124
+#: deposits-for-woocommerce.php:126
 msgid "Docs & FAQs"
 msgstr ""
 
-#: deposits-for-woocommerce.php:125
-#: deposits-for-woocommerce.php:126
+#: deposits-for-woocommerce.php:127
+#: deposits-for-woocommerce.php:128
 msgid "Get help"
 msgstr ""
 
-#: deposits-for-woocommerce.php:125
-#: deposits-for-woocommerce.php:126
+#: deposits-for-woocommerce.php:127
+#: deposits-for-woocommerce.php:128
 msgid "Support"
 msgstr ""
 
@@ -61,8 +61,8 @@ msgstr ""
 #: includes/functions.php:53
 #: src/Cart.php:101
 #: src/Checkout.php:347
-#: src/Order.php:320
-#: src/Order.php:369
+#: src/Order.php:322
+#: src/Order.php:371
 msgid "Due Payment:"
 msgstr ""
 
@@ -70,58 +70,58 @@ msgstr ""
 msgid "Available in PRO"
 msgstr ""
 
-#: src/Bootstrap.php:277
-#: src/Order.php:155
+#: src/Bootstrap.php:296
+#: src/Order.php:157
 msgid "Deposit Payments"
 msgstr ""
 
-#: src/Bootstrap.php:278
+#: src/Bootstrap.php:297
 msgctxt "Admin menu name"
 msgid "Deposit Payments"
 msgstr ""
 
-#: src/Bootstrap.php:279
+#: src/Bootstrap.php:298
 #: src/Integrations/Wcmp.php:116
-#: src/Order.php:191
-#: src/Order.php:241
-#: src/Order.php:343
-#: src/Product.php:520
+#: src/Order.php:193
+#: src/Order.php:243
+#: src/Order.php:345
+#: src/Product.php:526
 #: templates/order/deposit-summary.php:46
 msgid "Deposit"
 msgstr ""
 
-#: src/Bootstrap.php:280
+#: src/Bootstrap.php:299
 msgctxt "custom post type setting"
 msgid "Edit Deposit"
 msgstr ""
 
-#: src/Bootstrap.php:281
+#: src/Bootstrap.php:300
 msgctxt "custom post type setting"
 msgid "New Deposit"
 msgstr ""
 
-#: src/Bootstrap.php:282
-#: src/Bootstrap.php:283
+#: src/Bootstrap.php:301
+#: src/Bootstrap.php:302
 msgctxt "custom post type setting"
 msgid "View Deposit"
 msgstr ""
 
-#: src/Bootstrap.php:284
+#: src/Bootstrap.php:303
 msgid "Search Deposit"
 msgstr ""
 
-#: src/Bootstrap.php:286
+#: src/Bootstrap.php:305
 msgid "This is where store Deposit Payments are stored."
 msgstr ""
 
-#: src/Bootstrap.php:325
-#: src/Bootstrap.php:342
+#: src/Bootstrap.php:344
+#: src/Bootstrap.php:361
 msgctxt "Order status"
 msgid "Deposit Payment"
 msgstr ""
 
 #. translators: %s: number of orders
-#: src/Bootstrap.php:331
+#: src/Bootstrap.php:350
 msgid "Deposit Payment <span class=\"count\">(%s)</span>"
 msgid_plural "Deposit Payment <span class=\"count\">(%s)</span>"
 msgstr[0] ""
@@ -129,7 +129,7 @@ msgstr[1] ""
 
 #: src/Cart.php:101
 #: src/Checkout.php:347
-#: src/Order.php:369
+#: src/Order.php:371
 msgid "Deposit:"
 msgstr ""
 
@@ -138,20 +138,20 @@ msgid "Deposit Payment"
 msgstr ""
 
 #: src/DepositColums.php:151
-#: src/Order.php:180
+#: src/Order.php:182
 msgid "Date"
 msgstr ""
 
 #: src/DepositColums.php:152
 #: src/Emails.php:63
-#: src/Order.php:182
+#: src/Order.php:184
 #: templates/emails/deposit-summary.php:32
 #: templates/order/deposit-summary.php:33
 msgid "Status"
 msgstr ""
 
 #: src/DepositColums.php:153
-#: src/Order.php:183
+#: src/Order.php:185
 msgid "Total"
 msgstr ""
 
@@ -358,21 +358,21 @@ msgid "Congratulations on the Deposit."
 msgstr ""
 
 #: src/Integrations/Wcmp.php:67
-#: src/Product.php:565
-#: src/Product.php:616
+#: src/Product.php:572
+#: src/Product.php:623
 msgid "Fixed Amount"
 msgstr ""
 
 #: src/Integrations/Wcmp.php:68
-#: src/Product.php:564
-#: src/Product.php:615
+#: src/Product.php:571
+#: src/Product.php:622
 msgid "Percentage of Amount"
 msgstr ""
 
 #: src/Integrations/Wcmp.php:76
-#: src/Product.php:538
-#: src/Product.php:551
-#: src/Product.php:603
+#: src/Product.php:545
+#: src/Product.php:558
+#: src/Product.php:610
 msgid "Enable Deposit"
 msgstr ""
 
@@ -380,73 +380,69 @@ msgstr ""
 msgid "Enable deposits feature for this product"
 msgstr ""
 
-#: src/Modules/Admin.php:165
-msgid "Bayna database update required"
-msgstr ""
-
-#: src/Order.php:58
+#: src/Order.php:60
 msgid "Deposit Payment details"
 msgstr ""
 
-#: src/Order.php:178
+#: src/Order.php:180
 msgid "Order Number"
 msgstr ""
 
-#: src/Order.php:179
+#: src/Order.php:181
 msgid "Relationship"
 msgstr ""
 
-#: src/Order.php:181
+#: src/Order.php:183
 #: templates/order/deposit-summary.php:31
 msgid "Payment"
 msgstr ""
 
-#: src/Order.php:193
+#: src/Order.php:195
 #: templates/order/deposit-summary.php:48
 msgid "Due Payment"
 msgstr ""
 
-#: src/Order.php:199
+#: src/Order.php:201
 msgid "Deposit payment"
 msgstr ""
 
-#: src/Order.php:242
+#: src/Order.php:244
 msgid "Due"
 msgstr ""
 
-#: src/Order.php:312
+#: src/Order.php:314
 msgid "Total:"
 msgstr ""
 
-#: src/Order.php:316
+#: src/Order.php:318
 msgid "Paid:"
 msgstr ""
 
-#: src/Order.php:351
+#: src/Order.php:353
 msgid "Due Amount"
 msgstr ""
 
-#: src/Product.php:540
+#: src/Product.php:547
 msgid "Enable deposit feature for this Variable product. <a href=\"https://www.codeixer.com/docs/how-to-enable-deposit-partial-payment-feature-for-product/\" target=\"_blank\">Learn more</a>"
 msgstr ""
 
-#: src/Product.php:553
-#: src/Product.php:605
+#: src/Product.php:560
+#: src/Product.php:612
 msgid "Enable deposits feature for this product."
 msgstr ""
 
-#: src/Product.php:561
-#: src/Product.php:612
+#: src/Product.php:568
+#: src/Product.php:619
 msgid "Deposit type"
 msgstr ""
 
-#: src/Product.php:573
-#: src/Product.php:624
+#: src/Product.php:580
+#: src/Product.php:631
 msgid "Deposit Value *"
 msgstr ""
 
-#: src/Product.php:578
-#: src/Product.php:629
+#: src/Product.php:585
+#: src/Product.php:636
 msgid "Enter the value for deposit. only number allow."
 msgstr ""
 

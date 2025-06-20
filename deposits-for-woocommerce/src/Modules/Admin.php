@@ -1,25 +1,13 @@
 <?php
 namespace Deposits_WooCommerce\Modules;
 
-use Deposits_WooCommerce\Modules\UpdateDB;
+use Deposits_WooCommerce\Bootstrap;
 
 /**
  * This admin function is loaded from this class
  */
 
 class Admin {
-	/**
-	 * @var mixed
-	 */
-	public $updateDB; // updating..
-	/**
-	 * @var mixed
-	 */
-	public $updateCompleted; // update completed
-	/**
-	 * @var mixed
-	 */
-	protected $db_task;
 
 	/**
 	 * @return null
@@ -34,34 +22,8 @@ class Admin {
 		add_action( 'csf_options_before', array( $this, 'update_notice_option' ) );
 		add_action( 'admin_notices', array( $this, 'baynaReview' ) );
 		add_action( 'admin_init', array( $this, 'urlParamCheck' ) );
-		add_action( 'admin_init', array( 'PAnD', 'init' ) );
-		add_filter( 'admin_notices', array( $this, 'updateNoticeSucessful' ), 10 );
-		add_filter( 'admin_notices', array( $this, 'updateNoticeDB' ), 10 );
-
-		add_action( 'init', array( $this, 'run_update' ), 10 );
-
-		add_action( 'admin_init', array( $this, 'paramCheck' ), 10 );
-
-		// delete_option( 'bayna_run_update');
-		// delete_option( 'bayna_update_completed');
-		// delete_option( 'dfwc_plugin_review');
-
-		$this->updateDB        = get_option( 'bayna_run_update' );
-		$this->updateCompleted = get_option( 'bayna_update_completed' );
 	}
 
-	// Run DB update
-	function run_update() {
-		$this->db_task = new UpdateDB();
-		if ( isset( $_GET['bayna_run_update'] ) ) {
-
-			foreach ( $this->get_order_list_before_ver_2() as $id ) {
-				$this->db_task->push_to_queue( $id );
-			}
-
-			$this->db_task->save()->dispatch();
-		}
-	}
 	// notice for option page
 	/**
 	 * @return null
@@ -72,7 +34,13 @@ class Admin {
 		if ( 'codeixer_page_deposits_settings' != $currentScreen->id ) {
 			return;
 		}
+	
 		echo '<a class="cit-admin-pro-notice" target="_" href="https://www.codeixer.com/woocommerce-deposits-plugin/?utm_source=settings_page&utm_medium=top_banner&utm_campaign=ltd" target="_blank"><div><p>Is something missing? Uncover even more powerful features by upgrading to the premium version today!</p><small>✨ Secure the lifetime deal at a discounted price before it\'s too late! (save up to $240.00)</small> </div><span>I\'m interested</span></a>';
+
+		if ( Bootstrap::is_checkout_block() || Bootstrap::is_cart_block() ) {
+			echo '<div class="notice notice-error notice-alt"><p><strong>Conflict Detected:</strong> We have detected that your store is using the block-based checkout, which is currently incompatible with the Deposit feature. Please switch back to the classic checkout to use the deposit functionality. <a target="_" href="https://www.codeixer.com/docs/switch-back-to-woocommerce-classic-cart-checkout/">Learn more</a></p></div>';
+
+		}
 	}
 
 	/**
@@ -122,60 +90,7 @@ class Admin {
 		wp_enqueue_style( 'dfwc-admin', CIDW_DEPOSITS_ASSETS . '/css/dfwc-admin.css', null, CIDW_DEPOSITS_VERSION );
 		wp_enqueue_script( 'dfwc-admin', CIDW_DEPOSITS_ASSETS . '/js/admin.js', array( 'jquery' ), CIDW_DEPOSITS_VERSION, true );
 	}
-	/**
-	 * check params
-	 *
-	 * @return void
-	 */
-	public function paramCheck() {
-		if ( isset( $_GET['bayna_run_update'] ) && 1 == $_GET['bayna_run_update'] ) {
-			update_option( 'bayna_run_update', 1 );
-			$this->updateDB = get_option( 'bayna_run_update' );
-		}
-	}
-	/**
-	 * @return null
-	 */
-	public function updateNoticeSucessful() {
 
-		if ( ! \PAnD::is_admin_notice_active( 'disable-bayna-db-updated-notice-forever' ) ) {
-			return;
-		}
-		if ( $this->updateCompleted ) {
-			?>
-			<div data-dismissible="disable-bayna-db-updated-notice-forever" class="notice notice-success ci-notice-success is-dismissible">
-				<p>Bayna database update complete. Thank you for updating to the latest version!</p>
-
-			</div>
-			<?php
-		}
-	}
-
-	/**
-	 * @return null
-	 */
-	public function updateNoticeDB() {
-		$updateParm = array( 'bayna_run_update' => '1' );
-		if ( $this->updateCompleted || ( get_option( 'ci_woo_deposits_installed' ) > 1633617292 ) ) {
-			return;
-		}
-		?>
-
-		<div class="notice notice-info ci-notice-error">
-			<h3 class="ci_updatedb_title"><?php _e( 'Bayna database update required', 'deposits-for-woocommerce' ); ?></h3>
-
-			<?php
-			if ( get_option( 'bayna_run_update' ) == 1 ) {
-				echo '<p class="ci_updatedb_notce">Bayna is updating the database in the background. The database update process may take a little while, so please be patient.</p>';
-			} else {
-				echo '<p class="ci_updatedb_notce">Bayna - Deposits & Partial Payments for WooCommerce has been updated! To get previous deposits data, we have to update your database to the newest version. The database update process runs in the background and may take a little while, so please be patient.</p>';
-				echo '<p style="margin-bottom:15px;"><a href="' . wp_nonce_url( add_query_arg( $updateParm ) ) . '" class=" button-primary">Update Bayna Database</a></p>';
-			}
-			?>
-
-		</div>
-		<?php
-	}
 
 	/**
 	 * Leave Review Notice

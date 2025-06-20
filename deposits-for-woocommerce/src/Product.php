@@ -165,6 +165,9 @@ class Product {
 	 */
 	public function add_item_data( $cart_item_data, $product_id, $variation_id ) {
 
+		if ( Bootstrap::required_login_for_deposit() ) {
+			return $cart_item_data;
+		}
 		$vProductId = ( $variation_id ) ? $variation_id : $product_id;
 
 		if ( cidw_get_option( 'global_deposits_mode' ) == 1 && ! empty( cidw_get_option( 'global_deposits_value' ) ) ) {
@@ -418,6 +421,9 @@ class Product {
 	 * on the single product page
 	 */
 	public function before_add_to_cart() {
+		if ( Bootstrap::required_login_for_deposit() ) {
+			return;
+		}
 		$product                       = wc_get_product( get_the_ID() );
 		$product_force_deposit_checked = apply_filters( 'deposits_force_check', get_post_meta( get_the_id(), '_force_deposit_checked', true ) );
 		if ( cidw_is_product_type_deposit( get_the_ID() ) ) {
@@ -532,6 +538,7 @@ class Product {
 		<div id="woo_desposits_options" class="panel woocommerce_options_panel">
 		<div class="options_group deposit-variation-option" style="display:none">
 		<?php
+
 		woocommerce_wp_checkbox(
 			array(
 				'id'          => '_enable_variation_deposit',
@@ -544,7 +551,7 @@ class Product {
 		</div>
 		<div class="options_group deposit-simple-options">
 			<?php
-
+			
 			woocommerce_wp_checkbox(
 				array(
 					'id'          => '_enable_deposit',

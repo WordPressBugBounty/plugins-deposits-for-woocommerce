@@ -44,6 +44,8 @@ class Order {
 
 		add_filter( 'wc_order_is_editable', array( $this, 'order_status_editable' ), 10, 2 );
 		add_filter( 'woocommerce_admin_order_preview_get_order_details', array( $this, 'add_deposit_details' ), 10, 2 );
+		add_action( 'woocommerce_trash_order', array( $this, 'trash_deposit_orders' ), 20, 1 );
+		add_action( 'woocommerce_untrash_order', array( $this, 'untrash_deposit_orders' ), 20, 1 );
 	}
 	/**
 	 * add depsoit data into teh array for display
@@ -373,5 +375,47 @@ class Order {
 		}
 
 		return $quantity;
+	}
+	/**
+	 * Trash deposit orders when the parent order is trashed.
+	 *
+	 * @param int $order_id The ID of the order being trashed.
+	 * @return void
+	 */
+	public function trash_deposit_orders( $order_id ) {
+		// Check if the order is a deposit order
+		if ( bayna_is_deposit( $order_id ) ) {
+			$args = array(
+				'type'   => 'shop_deposit',
+				'parent' => $order_id,
+			);
+
+			$deposits = wc_get_orders( $args );
+			foreach ( $deposits as $key => $deposit ) {
+				wp_trash_post( $deposit->get_id() );
+			}
+		}
+	}
+	/**
+	 * Untrash deposit orders when the parent order is untrashed.
+	 *
+	 * @param  int $order_id
+	 * @return void
+	 */
+	public function untrash_deposit_orders( $order_id ) {
+
+		// Check if the order is a deposit order
+		if ( bayna_is_deposit( $order_id ) ) {
+			$args = array(
+				'type'   => 'shop_deposit',
+				'parent' => $order_id,
+				'status' => 'trash',
+			);
+
+			$deposits = wc_get_orders( $args );
+			foreach ( $deposits as $key => $deposit ) {
+				wp_untrash_post( $deposit->get_id() );
+			}
+		}
 	}
 }

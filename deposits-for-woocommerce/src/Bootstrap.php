@@ -51,7 +51,14 @@ class Bootstrap {
 
 		return $notice_text;
 	}
-
+	// Conditional function that check if Checkout page use Checkout Blocks
+	public static function is_checkout_block() {
+		return \WC_Blocks_Utils::has_block_in_page( wc_get_page_id( 'checkout' ), 'woocommerce/checkout' );
+	}
+	// Conditional function that check if Cart page use Cart Blocks
+	public static function is_cart_block() {
+		return \WC_Blocks_Utils::has_block_in_page( wc_get_page_id( 'cart' ), 'woocommerce/cart' );
+	}
 	// load plugin classes
 	public function loadClasses() {
 		Checkout::init(); // Checkout
@@ -65,7 +72,19 @@ class Bootstrap {
 
 		$this->set_admin_settings();
 	}
-
+	/**
+	 * Checks if login is required for deposit.
+	 *
+	 * @return bool True if login is required for deposit, false otherwise.
+	 */
+	public static function required_login_for_deposit() {
+		if ( cidw_get_option( 'required_login' ) == 1 && ! is_user_logged_in() ) {
+			return true;
+		} elseif ( cidw_get_option( 'required_login' ) == 1 && is_user_logged_in() ) {
+			return false;
+		}
+		return false;
+	}
 	public function override_hooks() {
 		remove_action( 'woocommerce_order_details_after_order_table', 'woocommerce_order_again_button' );
 	}
