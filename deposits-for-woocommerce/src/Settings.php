@@ -412,8 +412,7 @@ class Settings {
 					array(
 						'id'       => 'exclude_shipping_fee',
 						'type'     => 'select',
-						'class'    => 'cix-only-pro',
-						'subtitle' => 'Available in <a target="_blank" href="https://www.codeixer.com/woocommerce-deposits-plugin?utm_source=freemium&utm_medium=settings_page&utm_campaign=upgrade_pro">Pro Version!</a>',
+						
 						'title'    => 'Shipping Handling',
 						'desc'     => 'Choose how to handle shipping.',
 						'options'  => array(

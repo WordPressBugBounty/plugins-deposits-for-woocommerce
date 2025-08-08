@@ -129,8 +129,19 @@ class Cart {
 			$cart_item_total += $cart_item['line_subtotal'] * $cart_item['quantity'];
 
 		}
+		// Shipping fee
+		if ( cidw_get_option( 'exclude_shipping_fee' ) == '0' ) {
+			$deposit_amount += $cart->get_totals()['shipping_total'];
 
-		return $total - $due_amount;
+		} elseif ( cidw_get_option( 'exclude_shipping_fee' ) == '1' ) {
+			$due_amount += $cart->get_totals()['shipping_total'];
+		}
+
+		WC()->session->set( 'bayna_default_cart_total', $cart->total );
+		WC()->session->set( 'bayna_cart_deposit_amount', $deposit_amount );
+		WC()->session->set( 'bayna_cart_due_amount', $due_amount );
+		$cart_total = $total - $due_amount;
+		return apply_filters( 'bayna_deposit_cart_total', $cart_total );
 	}
 	/**
 	 * @param $cart

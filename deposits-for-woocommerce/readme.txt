@@ -4,7 +4,7 @@ Tags: deposit, woocommerce deposits, partial payment,WooCommerce
 Requires at least: 4.9
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable Tag: 1.3.6
+Stable Tag: 1.3.7
 License: GPLv2 or later
 
 WooCommerce Deposits & Partial Payments allows customers to pay for products using a partial payment.💰
@@ -148,6 +148,10 @@ Works great, easy to install and control.”.
 
 If you like this deposit plugin, then consider checking out our other free plugins:
 
+[Currency Switcher, Exchange Rates for WooCommerce](https://wordpress.org/plugins/woo-exchange-rate) - Allows to add exchange rates for WooCommerce store
+
+[Buy Now Button for WooCommerce](https://wordpress.org/plugins/buy-now-woo) - allowing customers to add products to the cart and proceed to checkout in one step.
+
 [WooCommerce Wishlist](https://wordpress.org/plugins/jvm-woocommerce-wishlist/) – Enhance your e-commerce store’s functionality with WooCommerce Wishlist – the ultimate tool that adds a powerful and lightweight wishlist feature.
 
 [Product gallery slider for WooCommerce](https://wordpress.org/plugins/woo-product-gallery-slider/) – Best product image gallery slider for WooCommerce. It shows your WooCommerce products with an image carousel slider. Beautiful style, increase sales and get customer attention.
@@ -182,6 +186,12 @@ you can easily override the labels and texts from deposit settings.
 
 
 == Changelog ==
+
+= 1.3.7 - 8 Aug 25 =
+
+* Added: Shipping Handling feature now included under "Collection Settings"
+* Compatibility with WooCommerce 10.0.x
+
 
 = 1.3.6 - 21 Jun 25 =
 

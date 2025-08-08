@@ -216,7 +216,14 @@ class Bootstrap {
 			);
 			add_filter( 'global_product_type_deposit', '__return_true' );
 		}
-
+		if ( cidw_get_option( 'exclude_shipping_fee' ) == 1 ) {
+			add_filter(
+				'dfwc_after_due_payment_label',
+				function ( $message ) {
+					return cidw_get_option( 'txt_to_shipping_fee', 'Shipping Fee Included' );
+				}
+			);
+		}
 		if ( ( cidw_get_option( 'global_deposits_mode' ) == 1 && ! empty( cidw_get_option( 'global_deposits_value' ) ) ) ) {
 			add_filter(
 				'deposits_value',

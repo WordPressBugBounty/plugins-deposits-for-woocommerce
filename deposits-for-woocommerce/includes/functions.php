@@ -18,19 +18,7 @@ if ( ! function_exists( 'cidw_due_to_pay' ) ) {
 	 */
 	function cidw_due_to_pay() {
 
-		$cartTotal = WC()->cart->total;
-		$subtotal  = WC()->cart->subtotal - $cartTotal;
-
-		// Loop over $cart items
-		$depositValue = 0; // no value
-		$dueValue     = 0; // no value
-		foreach ( WC()->cart->get_cart() as $cart_item_key => $cart_item ) {
-			$vProductId = ( $cart_item['variation_id'] ) ? $cart_item['variation_id'] : $cart_item['product_id'];
-
-			$dueValue += ( cidw_is_product_type_deposit( $vProductId ) && isset( $cart_item['_deposit_mode'] ) && 'check_deposit' == $cart_item['_deposit_mode'] ) ? $cart_item['_due_payment'] : null;
-		}
-
-		$duePayment = $dueValue;
+		$duePayment = WC()->session->get( 'bayna_cart_due_amount' );
 
 		echo apply_filters( 'bayna_due_payment_html', wc_price( $duePayment ) ); // WPCS: XSS ok.
 	}
