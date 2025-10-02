@@ -7,22 +7,16 @@ Requires PHP: 7.4
 Stable Tag: 1.3.7
 License: GPLv2 or later
 
-WooCommerce Deposits & Partial Payments allows customers to pay for products using a partial payment.💰
+Deposits for WooCommerce is allowing customers to pay for WooCommerce products using a partial payment.💰
 
 == Description ==
 
-Ever had a customer abandon their cart because they couldn’t pay the full amount upfront? 💸
+[Deposits for WooCommerce](https://www.codeixer.com/deposits-payment-plugin-for-woocommerce/?utm_source=wp&utm_medium=site&utm_campaign=free_plugin) plugin is allowing customers to pay for WooCommerce products using a partial payment to secure their purchase with a deposit or pay in installments, making large orders more manageable. 
 
-It’s frustrating when potential buyers walk away simply because they need more flexible WooCommerce payment options. 
-
-Many shoppers prefer to place a deposit or use WooCommerce split payments, but without a simple solution, they hesitate—and you lose the sale.
+With seamless integration into WooCommerce payment methods, this Partial Payments Plugin boosts conversions, improves customer satisfaction and gives your store the flexibility it needs to succeed.
 
 [__Live Demo__](http://codeixer.com/deposits-product-fixed-price) | [__Backend Demo__](https://www.codeixer.com/deposit-backend-pro) | [__Upgrade To Pro »__](https://www.codeixer.com/woocommerce-deposits-plugin/?utm_source=wp&utm_medium=site&utm_campaign=free_plugin) | [__Documentation__](https://www.codeixer.com/docs-category/bayna-woocommerce-deposit/)
 
-That’s where **Deposits & Partial Payments for WooCommerce** comes in. This powerful WooCommerce partial payment plugin allows customers to secure their purchase with a deposit or pay in installments, making large orders more manageable. 
-
-With seamless integration into WooCommerce payment methods, this Partial Payments Plugin boosts conversions, improves customer satisfaction and gives your store the flexibility it needs to succeed.
-== The Only WooCommerce Deposits & Partial Payments Plugin – Flexible Payment Options for Your Store ==
 [youtube https://youtu.be/4ZTn2ORi25g]
 The WooCommerce Deposits and Partial Payments Plugin makes it easy for customers to buy products by paying a partial payment or a deposit upfront. With this powerful WooCommerce partial payment plugin, you can:
 
