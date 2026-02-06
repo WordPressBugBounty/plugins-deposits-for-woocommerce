@@ -3,10 +3,10 @@
  * The plugin bootstrap file
  *
  * @wordpress-plugin
- * Plugin Name:       Deposits & Partial Payments for WooCommerce – Bayna
+ * Plugin Name:       Deposits & Partial Payments for WooCommerce - Bayna
  * Plugin URI:        https://wordpress.org/plugins/deposits-for-woocommerce/
  * Description:       Enable customers to pay for products using a deposit or a partial payment.
- * Version:           1.3.7
+ * Version:           1.4.1
  * Author:            Codeixer
  * Author URI:        https://codeixer.com
  * Text Domain:       deposits-for-woocommerce
@@ -14,7 +14,7 @@
  * Tested up to: 6.8
  * Requires at least: 5.5
  * WC requires at least: 5.0
- * WC tested up to: 10.0
+ * WC tested up to: 10.3.5
  * Requires PHP: 7.4
  * Requires Plugins: woocommerce
  * @package           deposits-for-woocommerce
@@ -35,7 +35,7 @@ add_action(
 			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'custom_order_tables', __FILE__, true );
 		}
 		if ( class_exists( '\Automattic\WooCommerce\Utilities\FeaturesUtil' ) ) {
-			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, false );
+			\Automattic\WooCommerce\Utilities\FeaturesUtil::declare_compatibility( 'cart_checkout_blocks', __FILE__, true );
 		}
 	}
 );

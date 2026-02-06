@@ -49,3 +49,26 @@ div.csf-email-templates {
     width: 350px;
     text-transform: capitalize;
 }
+#update-deposit-order {
+    width: 410px;
+    margin: 0 auto;
+    display: block;
+    margin-bottom: 20px;
+}
+
+#deposit-edit-wrapper .csf-onload {
+    border: 1px solid #ddd;
+    margin: 20px 0px;
+    border-radius: 5px;
+}
+
+#deposit-edit-wrapper .csf-field .csf-title {
+
+    width: 25%;
+
+}
+
+#deposit-edit-wrapper .csf-field .csf-fieldset {
+
+    width: calc(74% - 20px);
+}

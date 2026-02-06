@@ -410,12 +410,12 @@ class Settings {
 				'fields' => array(
 
 					array(
-						'id'       => 'exclude_shipping_fee',
-						'type'     => 'select',
-						
-						'title'    => 'Shipping Handling',
-						'desc'     => 'Choose how to handle shipping.',
-						'options'  => array(
+						'id'      => 'exclude_shipping_fee',
+						'type'    => 'select',
+
+						'title'   => 'Shipping Handling',
+						'desc'    => 'Choose how to handle shipping.',
+						'options' => array(
 							0 => 'With Deposit',
 							1 => 'With Future Payment',
 							// 'split' => 'Split',

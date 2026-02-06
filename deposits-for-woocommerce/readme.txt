@@ -1,17 +1,18 @@
-=== Deposits & Partial Payments for WooCommerce – Bayna ===
+=== Deposits & Partial Payments for WooCommerce ===
 Contributors: codeixer,im_niloy
 Tags: deposit, woocommerce deposits, partial payment,WooCommerce
 Requires at least: 4.9
 Tested up to: 6.8
 Requires PHP: 7.4
-Stable Tag: 1.3.7
+Stable tag: 1.4.1
 License: GPLv2 or later
+License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
 Deposits for WooCommerce is allowing customers to pay for WooCommerce products using a partial payment.💰
 
 == Description ==
 
-[Deposits for WooCommerce](https://www.codeixer.com/deposits-payment-plugin-for-woocommerce/?utm_source=wp&utm_medium=site&utm_campaign=free_plugin) plugin is allowing customers to pay for WooCommerce products using a partial payment to secure their purchase with a deposit or pay in installments, making large orders more manageable. 
+[__Deposits for WooCommerce__](https://www.codeixer.com/deposits-payment-plugin-for-woocommerce/?utm_source=wp&utm_medium=site&utm_campaign=free_plugin) plugin is allowing customers to pay for WooCommerce products using a partial payment to secure their purchase with a deposit or pay in installments, making large orders more manageable. 
 
 With seamless integration into WooCommerce payment methods, this Partial Payments Plugin boosts conversions, improves customer satisfaction and gives your store the flexibility it needs to succeed.
 
@@ -29,30 +30,8 @@ When shoppers have the option to use WooCommerce partial payments, they’re mor
 This not only increases conversions but also encourages repeat business, as customers appreciate the ability to pay in a way that suits them.
 
 With the WooCommerce payment plugin you can let your customers place a deposit, use WooCommerce split payments, and complete their payments later—all while enjoying a seamless shopping experience.
-== WHY SHOULD YOU USE BAYNA – THE ULTIMATE WOOCOMMERCE DEPOSITS & PARTIAL PAYMENT PLUGIN ==
 
-=== Send email reminders for balance payment ===
-[Automatically send email reminders to customers](https://www.codeixer.com/docs/how-to-set-up-deposit-payment-reminders-for-customers/) about their remaining balance. Keep them informed and ensure timely payments without manual follow-ups.
-=== Send email notifications to client & admin ===
-Stay updated with [automated email notifications](https://www.codeixer.com/docs/email-templates-for-a-deposit-order/) sent to both the customer and admin whenever a deposit is created or a payment is made. This keeps transactions transparent and hassle-free.
-=== Flexible partial payment options ===
-[Deposits & Partial Payments for WooCommerce](https://www.codeixer.com/woocommerce-deposits-plugin/?utm_source=wp&utm_medium=site&utm_campaign=free_plugin) makes it effortless for customers to purchase products using WooCommerce partial payments or deposits. Whether they prefer to pay a fixed amount or a percentage upfront, this WooCommerce deposits plugin ensures a smooth and flexible checkout experience.
-=== Boost conversions & customer loyalty ===
-By offering WooCommerce split payments, you remove barriers that prevent customers from making purchases. Shoppers who may have hesitated before can now secure their orders easily, increasing customer retention and repeat purchases.
-=== Full control over deposits & payments ===
-Deposits for WooCommerce plugin gives you complete control over how WooCommerce partial payments are handled. You can force deposits, set up category-based deposits or customize payment rules for different user roles, ensuring that your store operates exactly as you need it to.
-=== Seamless WooCommerce integration ===
-This powerful WooCommerce payment plugin supports all WooCommerce payment methods including offline payments like bank transfers and cash on delivery. Customers can choose to pay in full or place a deposit, making transactions seamless.
-
- [__Upgrade To Pro »__](https://www.codeixer.com/woocommerce-deposits-plugin/?utm_source=wp&utm_medium=site&utm_campaign=free_plugin) | [__Documentation__](https://www.codeixer.com/docs-category/bayna-woocommerce-deposit/)
-
-=== Advanced admin features ===
-Deposits for WooCommerce plugin provides sortable deposit reports, customizable email notifications for deposits and balance payments, and auto-cancelation of pending deposit orders after a set period. You stay in control without manual intervention.
-=== Proven & trusted by WooCommerce store owners ===
-Deposits for WooCommerce plugin has received excellent feedback from WooCommerce store owners who appreciate its reliability, ease of use, and outstanding support. Whether you're managing pre-orders, high-ticket items or backorders, Deposits for WooCommerce plugin ensures a better shopping experience and increased revenue.
-Start using The Ultimate WooCommerce Deposits & Partial Payment Plugin today and give your customers the payment flexibility they need while boosting your sales!
-
-=== 🌟 Free / Core Deposit Features In A Flash ===
+=== 🌟 Key Features (Free Version) ===
 
 🔸 Set up fixed or percentage amount
 🔸 Fixed Payment Gateways
@@ -71,7 +50,7 @@ Start using The Ultimate WooCommerce Deposits & Partial Payment Plugin today and
 🔸 New deposit, deposit order and deposit paid email templates
 
  [__Upgrade To Pro »__](https://www.codeixer.com/woocommerce-deposits-plugin/?utm_source=wp&utm_medium=site&utm_campaign=free_plugin) | [__Documentation__](https://www.codeixer.com/docs-category/bayna-woocommerce-deposit/)
-=== 🌟🌟 Supercharge Your WooCommerce Store with Deposits’s Premium Features! 🌟🌟 ===
+=== 🌟 Premium Features! 🌟 ===
 
 🛍️ **Add Deposit Product via ‘Add to Cart’** – Let customers add deposit-based products to their cart just like regular purchases from catalog page
 
@@ -85,8 +64,6 @@ Start using The Ultimate WooCommerce Deposits & Partial Payment Plugin today and
 
 🚚 **Exclude Shipping Fee** – Allow customers to pay only for the deposit first, while excluding the shipping cost from the initial payment.
 
-[__Upgrade To Pro »__](https://www.codeixer.com/woocommerce-deposits-plugin/?utm_source=wp&utm_medium=site&utm_campaign=free_plugin) | [__Documentation__](https://www.codeixer.com/docs-category/bayna-woocommerce-deposit/)
-
 📆 [__Payment Plans__](https://www.codeixer.com/docs/deposit-payment-plans/) – Offer structured deposit payment plans, such as installments, to allow flexibility for customers.
 
 💵 [__Custom Deposit Amount__](https://www.codeixer.com/docs/allow-custom-amount-payments-for-deposits/) – Let customers pay a different amount instead of the full deposit. 
@@ -99,32 +76,30 @@ Start using The Ultimate WooCommerce Deposits & Partial Payment Plugin today and
 
 📦 **COD Compatibility** – Enable deposit-based transactions to work with Cash on Delivery (COD) payment methods while [preventing future payments](https://www.codeixer.com/docs/how-to-pay-the-due-payment-for-deposits-orders/#disable-future-payments) from being processed.
 
-[__Upgrade To Pro »__](https://www.codeixer.com/woocommerce-deposits-plugin/?utm_source=wp&utm_medium=site&utm_campaign=free_plugin) | [__Documentation__](https://www.codeixer.com/docs-category/bayna-woocommerce-deposit/)
+🛒 **Cart-Based Deposit** - Let customers choose [WooCommerce partial payments directly at checkout](https://www.codeixer.com/docs/enable-cart-based-deposit/). Whether it's a fixed deposit or a percentage-based amount, this seamless option makes big purchases more accessible while increasing conversions.
 
-=== 🛒 Cart-Based Deposit ===
-Let customers choose [WooCommerce partial payments directly at checkout](https://www.codeixer.com/docs/enable-cart-based-deposit/). Whether it's a fixed deposit or a percentage-based amount, this seamless option makes big purchases more accessible while increasing conversions.
-=== Cancel Due Orders ===
-Automatically cancel overdue deposit orders after a set period, ensuring a smoother workflow and better management of WooCommerce split payments.
-=== Global Deposit Settings ===
-Apply a fixed or percentage-based deposit across all products in your store, giving customers a consistent and flexible WooCommerce partial payment plugin experience.
-=== Deposit Status Management ===
-Easily update the order status once deposits are completed, keeping track of WooCommerce deposits and partial payments without manual effort.
+**Cancel Due Orders** - Automatically cancel overdue deposit orders after a set period, ensuring a smoother workflow and better management of WooCommerce split payments.
 
-[__Upgrade To Pro »__](https://www.codeixer.com/woocommerce-deposits-plugin/?utm_source=wp&utm_medium=site&utm_campaign=free_plugin) | [__Documentation__](https://www.codeixer.com/docs-category/bayna-woocommerce-deposit/)
-=== Conditions for Deposit Items ===
-Control how WooCommerce payment options work by setting conditions for deposit items—allow only deposit-based purchases or mix them with regular products in the cart.
-=== Category-based deposits ===
-Enable WooCommerce deposits and partial payments for specific product categories. Offer flexible payment options only for high-value or exclusive products while keeping other items as full-payment purchases.
-=== User roles-based deposits ===
-Customize WooCommerce payment options based on user roles. Offer special partial payment WooCommerce plugin features for wholesalers, VIP customers, or specific membership levels.
-=== Force deposit ===
-Require customers to pay a deposit before securing their order. This feature ensures commitment from buyers while giving them the flexibility to complete payments later.
-=== User roles restriction ===
-Restrict WooCommerce split payments to specific user roles. Allow deposits only for registered users, VIP members, or other defined customer groups for better control over payment flexibility.
+**Global Deposit Settings** - Apply a fixed or percentage-based deposit across all products in your store, giving customers a consistent and flexible WooCommerce partial payment plugin experience.
+
+**Deposit Status Management** - Easily update the order status once deposits are completed, keeping track of WooCommerce deposits and partial payments without manual effort.
+
+**Conditions for Deposit Items** - Control how WooCommerce payment options work by setting conditions for deposit items—allow only deposit-based purchases or mix them with regular products in the cart.
+
+**Category-based deposits** - Enable WooCommerce deposits and partial payments for specific product categories. Offer flexible payment options only for high-value or exclusive products while keeping other items as full-payment purchases.
+
+**User roles-based deposits** - Customize WooCommerce payment options based on user roles. Offer special partial payment WooCommerce plugin features for wholesalers, VIP customers, or specific membership levels.
+
+**Force deposit** -Require customers to pay a deposit before securing their order. This feature ensures commitment from buyers while giving them the flexibility to complete payments later.
+
+**User roles restriction** - Restrict WooCommerce split payments to specific user roles. Allow deposits only for registered users, VIP members, or other defined customer groups for better control over payment flexibility.
 
 [__Upgrade To Pro »__](https://www.codeixer.com/woocommerce-deposits-plugin/?utm_source=wp&utm_medium=site&utm_campaign=free_plugin) | [__Documentation__](https://www.codeixer.com/docs-category/bayna-woocommerce-deposit/)
 
-## See what a few WooCommerce store owners are saying ##
+Deposits for WooCommerce plugin has received excellent feedback from WooCommerce store owners who appreciate its reliability, ease of use, and outstanding support. Whether you're managing pre-orders, high-ticket items or backorders, Deposits for WooCommerce plugin ensures a better shopping experience and increased revenue.
+Start using The Ultimate WooCommerce Deposits & Partial Payment Plugin today and give your customers the payment flexibility they need while boosting your sales!
+== See what a few WooCommerce store owners are saying ==
+
 
 > “Excellent support and response. Very good plugin. Is what i needed”.
 > - pulsocreativo
@@ -138,7 +113,7 @@ Works great, easy to install and control.”.
 
 [All Reviews](https://wordpress.org/support/plugin/deposits-for-woocommerce/reviews/?filter=5)
 
-## 🔥 WHAT’S NEXT ##
+== 🔥 WHAT’S NEXT ==
 
 If you like this deposit plugin, then consider checking out our other free plugins:
 
@@ -152,16 +127,25 @@ If you like this deposit plugin, then consider checking out our other free plugi
 
 
 == Installation ==
-#### Step-By-Step Instructions 
+= Step-By-Step Instructions =
 - Go to the WordPress Dashboard "Add New Plugin" section.
-- Search For "Deposits for WooCommerce" or "bayna".
+- Search For "Deposits for WooCommerce" or "bayna".
 - Install it by clicking the "Install Now" button.
-- When the installation finishes, click the "Activate Plugin" button.
+- When the installation finishes, click the "Activate Plugin" button.
 
 == Frequently Asked Questions ==
 
 = How do I add a deposit in WooCommerce? = 
 Once you activate the plugin on your website, a new tab will appear under the product data section labeled 'Deposit.' This tab allows you to easily manage deposit options.[Learn more](https://www.codeixer.com/docs/how-to-enable-deposit-partial-payment-feature-for-product/)  
+
+= How do I add a deposit to an existing order? =
+1. Go to **WooCommerce → Orders** in your WordPress dashboard.  
+2. Select the order you want to modify (click its Order ID).  
+3. On the order detail page, click the **"Recalculate Deposit"** button.  
+4. A popup will appear showing deposit options (amount, type, etc.). Configure as needed.  
+5. Click **Update Order**. The deposit will be applied and the customer will automatically receive an updated email notification.
+[click here to Learn more](https://www.codeixer.com/docs/how-to-create-and-manage-deposits-as-an-admin/) 
+
 
 = How to override the Deposit Labels? =
 you can easily override the labels and texts from deposit settings.
@@ -177,18 +161,37 @@ you can easily override the labels and texts from deposit settings.
 5. Deposit list
 6. Deposit Settings
 7. Deposit data for product
+8. Manage deposits from the order Dashboard
 
 
 == Changelog ==
 
-= 1.3.7 - 8 Aug 25 =
+= 1.4.1 [21 Nov 2025] =
 
+* Fixed: Payment gateway conflict with version 1.4
+* Fixed: Deposit-related calculations in Checkout.php now explicitly cast `_deposit_value` meta to float to prevent type errors
+* Fixed: Fatal error when `Enable compatibility mode` checked for Order data storage
+* Fixed: Incorrect deposit amount calculation when the WooCommerce checkout block is enabled
+
+= 1.4 =
+* Release Date 29 Oct 25
+* Added: Declare support for `cart_checkout_blocks`
+
+= 1.4 =
+* Release Date 29 Oct 25
+* Added: Declare support for `cart_checkout_blocks`
+* Added: Create and manage deposit from order backend [Learn More](https://www.codeixer.com/docs/how-to-create-and-manage-deposits-as-an-admin/)
+* Fixed: Deposit amount now support decimal/float amount
+
+
+= 1.3.7  =
+* Release Date 8 Aug 25
 * Added: Shipping Handling feature now included under "Collection Settings"
 * Compatibility with WooCommerce 10.0.x
 
 
-= 1.3.6 - 21 Jun 25 =
-
+= 1.3.6 =
+* Release Date 21 Jun 25 
 * Added: Warning in settings page if you are using block based cart and checkout page
 * Added: Required login feature is now avaible in free version 
 * Added: Deposit orders are trashed when an admin or third-party plugins trash the parent order.

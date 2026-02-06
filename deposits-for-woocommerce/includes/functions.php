@@ -6,7 +6,7 @@ if ( ! function_exists( 'cidw_deposit_to_pay' ) ) {
 	 */
 	function cidw_deposit_to_pay() {
 
-		$depositValue = WC()->cart->get_total( 'f' );
+		$depositValue = WC()->cart->get_total('f');
 
 		echo apply_filters( 'woocommerce_deposit_to_pay_html', wc_price( $depositValue ) ); // WPCS: XSS ok.
 	}

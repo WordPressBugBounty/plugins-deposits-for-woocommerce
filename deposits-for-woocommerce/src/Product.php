@@ -551,7 +551,7 @@ class Product {
 		</div>
 		<div class="options_group deposit-simple-options">
 			<?php
-			
+
 			woocommerce_wp_checkbox(
 				array(
 					'id'          => '_enable_deposit',

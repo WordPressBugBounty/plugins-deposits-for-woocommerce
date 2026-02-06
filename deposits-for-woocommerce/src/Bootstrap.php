@@ -26,6 +26,7 @@ class Bootstrap {
 
 		return self::$instance;
 	}
+
 	/**
 	 * Constructor.
 	 */
@@ -43,6 +44,7 @@ class Bootstrap {
 		add_filter( 'semantic_versioning_notice_text', array( $this, 'disable_auto_update_msg' ), 20, 2 );
 		$this->loadClasses();
 	}
+
 	public function disable_auto_update_msg( $notice_text, $plugin_file_name ) {
 
 		if ( $plugin_file_name == 'deposits-for-woocommerce/deposits-for-woocommerce.php' ) {
@@ -51,18 +53,33 @@ class Bootstrap {
 
 		return $notice_text;
 	}
+
 	// Conditional function that check if Checkout page use Checkout Blocks
 	public static function is_checkout_block() {
 		return \WC_Blocks_Utils::has_block_in_page( wc_get_page_id( 'checkout' ), 'woocommerce/checkout' );
 	}
+
 	// Conditional function that check if Cart page use Cart Blocks
 	public static function is_cart_block() {
 		return \WC_Blocks_Utils::has_block_in_page( wc_get_page_id( 'cart' ), 'woocommerce/cart' );
 	}
+
+	/**
+	 * Initialize blocks compatibility for FREE version
+	 */
+	public function init_blocks_compatibility() {
+		if ( ! class_exists( 'Automattic\WooCommerce\StoreApi\StoreApi' ) ) {
+			return;
+		}
+
+		// Initialize blocks integration
+		BlocksIntegration::get_instance();
+	}
+
 	// load plugin classes
 	public function loadClasses() {
 		Checkout::init(); // Checkout
-		Order::init(); // Checkout
+		Order::init(); // Order
 		Product::init(); // Single Product
 		Cart::init(); // Cart
 		Emails::init(); // Emails
@@ -70,8 +87,12 @@ class Bootstrap {
 		DepositColums::init();
 		new Wcmp();
 
+		// Initialize blocks compatibility
+		add_action( 'woocommerce_blocks_loaded', array( $this, 'init_blocks_compatibility' ) );
+
 		$this->set_admin_settings();
 	}
+
 	/**
 	 * Checks if login is required for deposit.
 	 *
@@ -85,9 +106,11 @@ class Bootstrap {
 		}
 		return false;
 	}
+
 	public function override_hooks() {
 		remove_action( 'woocommerce_order_details_after_order_table', 'woocommerce_order_again_button' );
 	}
+
 	/**
 	 * @param  $template
 	 * @param  $template_name
@@ -114,6 +137,7 @@ class Bootstrap {
 
 		return $template;
 	}
+
 	/**
 	 * @return mixed
 	 */
@@ -121,6 +145,7 @@ class Bootstrap {
 
 		return is_object( WC()->cart ) ? WC()->cart->get_cart_contents_total() : '';
 	}
+
 	/**
 	 * Ajax option for adding deposits value into product
 	 * on Variation Toggle
@@ -184,8 +209,6 @@ class Bootstrap {
 				</div>
 			</div>
 			</div>
-
-
 
 			<span style="margin-bottom:15px;display: block;"></span>
 			</div>

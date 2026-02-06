@@ -34,13 +34,8 @@ class Admin {
 		if ( 'codeixer_page_deposits_settings' != $currentScreen->id ) {
 			return;
 		}
-	
+
 		echo '<a class="cit-admin-pro-notice" target="_" href="https://www.codeixer.com/woocommerce-deposits-plugin/?utm_source=settings_page&utm_medium=top_banner&utm_campaign=ltd" target="_blank"><div><p>Is something missing? Uncover even more powerful features by upgrading to the premium version today!</p><small>✨ Secure the lifetime deal at a discounted price before it\'s too late! (save up to $240.00)</small> </div><span>I\'m interested</span></a>';
-
-		if ( Bootstrap::is_checkout_block() || Bootstrap::is_cart_block() ) {
-			echo '<div class="notice notice-error notice-alt"><p><strong>Conflict Detected:</strong> We have detected that your store is using the block-based checkout, which is currently incompatible with the Deposit feature. Please switch back to the classic checkout to use the deposit functionality. <a target="_" href="https://www.codeixer.com/docs/switch-back-to-woocommerce-classic-cart-checkout/">Learn more</a></p></div>';
-
-		}
 	}
 
 	/**
@@ -88,7 +83,21 @@ class Admin {
 	public function adminScripts() {
 		wp_enqueue_style( 'dfwc-admin-fw', CIDW_DEPOSITS_ASSETS . '/css/fw.css', null, CIDW_DEPOSITS_VERSION );
 		wp_enqueue_style( 'dfwc-admin', CIDW_DEPOSITS_ASSETS . '/css/dfwc-admin.css', null, CIDW_DEPOSITS_VERSION );
+		wp_enqueue_style( 'bayna-modal', CIDW_DEPOSITS_ASSETS . '/css/jquery.modal.min.css', array(), CIDW_DEPOSITS_VERSION, 'all' );
+		wp_enqueue_script( 'bayna-modal', CIDW_DEPOSITS_ASSETS . '/js/jquery.modal.min.js', array( 'jquery' ), CIDW_DEPOSITS_VERSION, true );
 		wp_enqueue_script( 'dfwc-admin', CIDW_DEPOSITS_ASSETS . '/js/admin.js', array( 'jquery' ), CIDW_DEPOSITS_VERSION, true );
+		wp_localize_script(
+			'dfwc-admin',
+			'dfwc_admin_vars',
+			array(
+				'i18n'       => array(
+					'confirm' => esc_html__( 'Are you sure?', 'deposits-for-woocommerce' ),
+
+				),
+				'ajax_url'   => admin_url( 'admin-ajax.php', 'relative' ),
+				'ajax_nonce' => wp_create_nonce( 'deposit_admin_nonce' ),
+			)
+		);
 	}
 
 

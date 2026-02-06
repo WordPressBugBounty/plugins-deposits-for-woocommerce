@@ -23,6 +23,7 @@ class Checkout {
 
 		return self::$instance;
 	}
+
 	/**
 	 * Constructor.
 	 */
@@ -42,8 +43,137 @@ class Checkout {
 		add_action( 'woocommerce_order_status_completed', array( $this, 'deposits_completed' ), 10, 1 );
 		add_action( 'bayna_all_deposit_payments_paid', array( $this, 'update_parent_order_metadata' ), 10, 1 );
 		add_action( 'woocommerce_order_status_failed', array( $this, 'update_child_order_status' ), 10, 1 );
+
+		// Add blocks checkout processing with proper logic validation
+		add_action( 'woocommerce_store_api_checkout_update_order_meta', array( $this, 'process_blocks_checkout' ), 10, 1 );
+
 		do_action( 'wc_deposit_checkout', $this );
 	}
+
+	/**
+	 * Process blocks checkout with FREE version 4-scenario validation
+	 */
+	public function process_blocks_checkout( $order ) {
+		// CRITICAL: Apply FREE version logic validation before processing
+		if ( ! $this->should_order_be_deposit_order() ) {
+			// This should be a regular order - do not apply deposit processing
+			return;
+		}
+
+		// Only process if we have actual deposit items
+		if ( ! cidw_cart_have_deposit_item() ) {
+			return;
+		}
+
+		$deposit_value  = WC()->session->get( 'bayna_cart_deposit_amount', 0 );
+		$due_amount     = WC()->session->get( 'bayna_cart_due_amount', 0 );
+		$original_total = WC()->session->get( 'bayna_default_cart_total', $order->get_total() );
+
+		if ( $deposit_value > 0 ) {
+			$order->update_meta_data( '_deposit_value', $deposit_value );
+			$order->update_meta_data( '_order_due_ammount', $due_amount );
+			$order->update_meta_data( '_original_total', $original_total );
+			$order->update_meta_data( '_processed_by_blocks', true );
+
+			// Set order total to deposit amount
+			$order->set_total( $deposit_value );
+			$order->save();
+		}
+	}
+
+	/**
+	 * CRITICAL: Determine if order should be a deposit order using FREE version logic
+	 */
+	private function should_order_be_deposit_order() {
+		if ( ! WC()->cart || WC()->cart->is_empty() ) {
+			return false;
+		}
+
+		$global_deposits_enabled  = cidw_get_option( 'global_deposits_mode', 0 ) == 1;
+		$global_excluded_products = cidw_get_option( 'global_deposits_exclude_products', array() );
+
+		if ( ! is_array( $global_excluded_products ) ) {
+			$global_excluded_products = array();
+		}
+
+		foreach ( WC()->cart->get_cart() as $cart_item ) {
+			$product_id   = $cart_item['product_id'];
+			$variation_id = $cart_item['variation_id'];
+			$vProductId   = $variation_id ? $variation_id : $product_id;
+
+			// Apply the same 4-scenario logic as BlocksIntegration
+			$deposit_decision = $this->evaluate_deposit_scenario( $vProductId, $global_deposits_enabled, $global_excluded_products );
+
+			if ( $deposit_decision['should_have_deposit'] &&
+				isset( $cart_item['_deposit_mode'] ) &&
+				$cart_item['_deposit_mode'] === 'check_deposit' ) {
+				return true; // At least one item qualifies for deposits
+			}
+		}
+
+		return false; // No items qualify for deposits
+	}
+
+	/**
+	 * FREE VERSION 4-scenario evaluation logic (matches BlocksIntegration)
+	 */
+	private function evaluate_deposit_scenario( $product_id, $global_deposits_enabled, $global_excluded_products ) {
+		// Check individual product deposit settings
+		$product_deposit_enabled    = get_post_meta( $product_id, '_enable_deposit', true ) === 'yes';
+		$product_deposit_type       = get_post_meta( $product_id, '_deposits_type', true );
+		$product_deposit_value      = get_post_meta( $product_id, '_deposits_value', true );
+		$product_has_valid_settings = ! empty( $product_deposit_type ) && ! empty( $product_deposit_value );
+
+		// Check if product is excluded from global deposits
+		$product_excluded_from_global = in_array( $product_id, $global_excluded_products );
+
+		// SCENARIO 1: Global OFF + Product OFF → No deposit
+		if ( ! $global_deposits_enabled && ( ! $product_deposit_enabled || ! $product_has_valid_settings ) ) {
+			return array(
+				'should_have_deposit' => false,
+				'scenario'            => 'global_off_product_off',
+			);
+		}
+
+		// SCENARIO 2: Global ON + Product ON → Product settings take priority
+		if ( $global_deposits_enabled && $product_deposit_enabled && $product_has_valid_settings && ! $product_excluded_from_global ) {
+			return array(
+				'should_have_deposit' => true,
+				'scenario'            => 'global_on_product_on_use_product',
+			);
+		}
+
+		// SCENARIO 3: Global ON + Product OFF → Global settings apply (if not excluded)
+		if ( $global_deposits_enabled && ( ! $product_deposit_enabled || ! $product_has_valid_settings ) && ! $product_excluded_from_global ) {
+			return array(
+				'should_have_deposit' => true,
+				'scenario'            => 'global_on_product_off_use_global',
+			);
+		}
+
+		// SCENARIO 4: Global OFF + Product ON → Product settings apply
+		if ( ! $global_deposits_enabled && $product_deposit_enabled && $product_has_valid_settings ) {
+			return array(
+				'should_have_deposit' => true,
+				'scenario'            => 'global_off_product_on_use_product',
+			);
+		}
+
+		// EDGE CASE: Global ON but product is excluded → No deposit
+		if ( $global_deposits_enabled && $product_excluded_from_global ) {
+			return array(
+				'should_have_deposit' => false,
+				'scenario'            => 'global_on_but_product_excluded',
+			);
+		}
+
+		// Default fallback: No deposit
+		return array(
+			'should_have_deposit' => false,
+			'scenario'            => 'fallback_no_deposit',
+		);
+	}
+
 	/**
 	 * Override default order return url for deposit
 	 *
@@ -64,6 +194,7 @@ class Checkout {
 		}
 		return $return_url;
 	}
+
 	/**
 	 * update order meta data (due Ammount)
 	 * since all child orders are completed
@@ -84,9 +215,11 @@ class Checkout {
 	 */
 	public function offline_deposit_orders( $status, $order ) {
 		$order_id = $order->get_id();
+
+		// CRITICAL: Only process if this should be a deposit order according to our logic
 		if ( bayna_is_deposit( $order_id ) ) {
 
-			$due_ammount = $order->get_total() - $order->get_meta( '_deposit_value' );
+			$due_ammount = $order->get_total( 'edit' ) - (float) $order->get_meta( '_deposit_value' );
 			$order->update_meta_data( '_order_due_ammount', $due_ammount );
 			$order->save();
 
@@ -95,6 +228,7 @@ class Checkout {
 
 		}
 
+		// Only create deposit orders if logic validation passes
 		if ( bayna_is_deposit( $order_id ) && $order->get_meta( '_genarate_deposit_orders' ) != 1 ) {
 			// create deposit orders based on parent order
 			$this->genarate_deposit_order( $order );
@@ -103,6 +237,7 @@ class Checkout {
 		}
 		return $status;
 	}
+
 	/**
 	 * Change the order status to 'wc-depsoit' after payment completed
 	 *
@@ -113,14 +248,8 @@ class Checkout {
 	 * @return void
 	 */
 	public function change_status_to_deposit( $status, $order_id, $order ) {
+		// CRITICAL: Only change status if this should be a deposit order according to our logic
 		if ( bayna_is_deposit( $order_id ) && $order->get_meta( '_genarate_deposit_orders' ) != 1 ) {
-
-			$due_ammount = $order->get_total() - $order->get_meta( '_deposit_value' );
-			$order->update_meta_data( '_order_due_ammount', $due_ammount );
-			$order->save();
-
-			$order->calculate_shipping();
-			$order->calculate_totals();
 
 			// Set main order status 'deposit' after payment complete
 			return 'wc-deposit';
@@ -128,6 +257,7 @@ class Checkout {
 
 		return $status;
 	}
+
 	/**
 	 * Genarate child deposit orders
 	 *
@@ -136,9 +266,16 @@ class Checkout {
 	 * @return void
 	 */
 	public function manage_deposit_orders( $order_id ) {
-
 		$order = wc_get_order( $order_id );
+
 		if ( bayna_is_deposit( $order_id ) && $order->get_meta( '_genarate_deposit_orders' ) != 1 ) {
+
+			$due_ammount = $order->get_total( 'edit' ) - (float) $order->get_meta( '_deposit_value' );
+			$order->update_meta_data( '_order_due_ammount', $due_ammount );
+			$order->save();
+
+			$order->calculate_shipping();
+			$order->calculate_totals();
 			// create deposit orders based on parent order
 			$this->genarate_deposit_order( $order );
 		}
@@ -153,7 +290,13 @@ class Checkout {
 	 */
 	private function change_parent_order_status( $order_id ) {
 		// check the post type and set our cusrom function
-		if ( get_post_type( $order_id ) == 'shop_deposit' ) {
+
+		$order = wc_get_order( $order_id );
+		// The get_type() method works with HPOS and legacy storage
+		$order_type = $order->get_type();
+
+		if ( $order_type == 'shop_deposit' ) {
+
 			$depositOrder  = new ShopDeposit( $order_id );
 			$parentId      = $depositOrder->get_parent_id();
 			$completedArgs = array(
@@ -193,6 +336,7 @@ class Checkout {
 	public function deposits_completed( $order_id ) {
 		$this->change_parent_order_status( $order_id );
 	}
+
 	/**
 	 * Disbale Payment gateways
 	 *
@@ -216,7 +360,7 @@ class Checkout {
 	}
 
 	/**
-	 * Adjust 'deposit parent order' based on cart
+	 * Adjust 'deposit parent order' based on cart with FREE version logic validation
 	 *
 	 * @param  int    $order_id
 	 * @param  object $order
@@ -224,6 +368,7 @@ class Checkout {
 	 */
 	public function manage_order( $order_id, $data ) {
 		$order = wc_get_order( $order_id );
+
 		// Loop over $cart items
 		$depositValue    = 0; // no value
 		$dueValue        = 0; // no value
@@ -243,7 +388,7 @@ class Checkout {
 			return; // because order don't have any deposit item.
 		}
 
-		$depositValue = WC()->cart->get_total( 'f' );
+		$depositValue = WC()->cart->get_total('raw');
 		$order->update_meta_data( '_deposit_value', $depositValue, true );
 
 		do_action( 'banyna_update_checkout_order_meta', $order );
@@ -260,18 +405,15 @@ class Checkout {
 	 */
 	private function genarate_deposit_order( $order ) {
 		$order_id                   = $order->get_id();
-		$depositValue               = $order->get_meta( '_deposit_value' );
+		$depositValue               = (float) $order->get_meta( '_deposit_value' );
 		$offline_payment_gatway_ids = array( 'bacs', 'cheque', 'cod' );
 		$first_deposit_order_status = 'completed';
 		if ( in_array( $order->get_payment_method(), $offline_payment_gatway_ids ) ) {
 			$first_deposit_order_status = 'on-hold';
 		}
 
-		// todo: create new deposit based on payment plan
-
 		// 2nd payment
 		// Get order total
-
 		$total = $order->get_total();
 		// Fee items
 		$item = new \WC_Order_Item_Fee();
@@ -310,7 +452,7 @@ class Checkout {
 		$DepositOrder->set_status( $first_deposit_order_status );
 		$DepositOrder->save();
 
-		$due_ammount = $order->get_total() - $order->get_meta( '_deposit_value' );
+		$due_ammount = $order->get_total() - (float) $order->get_meta( '_deposit_value' );
 
 		// add order meta data because deposit order genarate sucessfully
 		$order->update_meta_data( '_order_due_ammount', $due_ammount );

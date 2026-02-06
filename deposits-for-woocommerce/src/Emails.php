@@ -118,7 +118,10 @@ class Emails {
 
 		$orderId      = $object->get_order_number();
 		$autoGenarate = get_post_meta( $orderId, '_create_from_shop_order', true ); // order genarate by updateDB class. so we don't need to send emails for exsiting orders
-		if ( get_post_type( $orderId ) == 'shop_deposit' ) {
+		$order = wc_get_order( $orderId );
+		// The get_type() method works with HPOS and legacy storage
+		$order_type = $order->get_type();
+		if ( $order_type == 'shop_deposit' ) {
 			if ( 1 == $autoGenarate ) {
 				// check the auto genarate order by updateDB class
 				return false; // no need to to send email for exisiting orders

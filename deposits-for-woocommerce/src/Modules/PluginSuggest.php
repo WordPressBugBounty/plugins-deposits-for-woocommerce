@@ -26,46 +26,46 @@ class PluginSuggest {
 		return $args;
 	} // featured_plugins_tab
 
-	 // add single plugin to list of favs
-	 static function add_plugin_favs( $plugin_slug, $res ) {
+	// add single plugin to list of favs
+	static function add_plugin_favs( $plugin_slug, $res ) {
 
-        // Ensure $res->plugins is an array and not empty
-        if ( ! isset( $res->plugins ) || ! is_array( $res->plugins ) ) {
-            $res->plugins = [];
-        }
+		// Ensure $res->plugins is an array and not empty
+		if ( ! isset( $res->plugins ) || ! is_array( $res->plugins ) ) {
+			$res->plugins = array();
+		}
 
-        if ( ! empty( $res->plugins ) && is_array( $res->plugins ) ) {
-            foreach ( $res->plugins as $plugin ) {
-                if ( is_object( $plugin ) && ! empty( $plugin->slug ) && $plugin->slug === $plugin_slug ) {
-                    return $res;
-                }
-            } // foreach
-        }
-        $plugin_info = get_transient( 'cdx-bayna-plugin-info-' . $plugin_slug );
-        if ( $plugin_info ) {
-            array_unshift( $res->plugins, $plugin_info );
-        } else {
-            $plugin_info = plugins_api(
-                'plugin_information',
-                array(
-                    'slug'   => $plugin_slug,
-                    'is_ssl' => is_ssl(),
-                    'fields' => array(
-                        'banners'           => true,
-                        'reviews'           => true,
-                        'downloaded'        => true,
-                        'active_installs'   => true,
-                        'icons'             => true,
-                        'short_description' => true,
-                    ),
-                )
-            );
-            if ( ! is_wp_error( $plugin_info ) ) {
-                $res->plugins[] = $plugin_info;
-                set_transient( 'cdx-bayna-plugin-info-' . $plugin_slug, $plugin_info, DAY_IN_SECONDS * 7 );
-            }
-        }
+		if ( ! empty( $res->plugins ) && is_array( $res->plugins ) ) {
+			foreach ( $res->plugins as $plugin ) {
+				if ( is_object( $plugin ) && ! empty( $plugin->slug ) && $plugin->slug === $plugin_slug ) {
+					return $res;
+				}
+			} // foreach
+		}
+		$plugin_info = get_transient( 'cdx-bayna-plugin-info-' . $plugin_slug );
+		if ( $plugin_info ) {
+			array_unshift( $res->plugins, $plugin_info );
+		} else {
+			$plugin_info = plugins_api(
+				'plugin_information',
+				array(
+					'slug'   => $plugin_slug,
+					'is_ssl' => is_ssl(),
+					'fields' => array(
+						'banners'           => true,
+						'reviews'           => true,
+						'downloaded'        => true,
+						'active_installs'   => true,
+						'icons'             => true,
+						'short_description' => true,
+					),
+				)
+			);
+			if ( ! is_wp_error( $plugin_info ) ) {
+				$res->plugins[] = $plugin_info;
+				set_transient( 'cdx-bayna-plugin-info-' . $plugin_slug, $plugin_info, DAY_IN_SECONDS * 7 );
+			}
+		}
 
-        return $res;
-    } // add_plugin_favs
+		return $res;
+	} // add_plugin_favs
 }

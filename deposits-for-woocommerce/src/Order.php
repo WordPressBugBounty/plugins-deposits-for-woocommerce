@@ -36,8 +36,7 @@ class Order {
 		add_filter( 'woocommerce_get_order_item_totals', array( $this, 'table_row_data' ), 10, 2 );
 		add_action( 'woocommerce_admin_order_totals_after_tax', array( $this, 'deposit_data_dispaly_table_tr' ), 20, 1 );
 		add_action( 'woocommerce_admin_order_preview_end', array( $this, 'preview_deposit_data' ) );
-		add_action( 'woocommerce_admin_order_item_headers', array( $this, 'admin_order_items_headers' ), 10, 1 );
-		add_action( 'woocommerce_admin_order_item_values', array( $this, 'admin_order_items_values' ), 10, 3 );
+		add_filter( 'woocommerce_order_item_get_formatted_meta_data', array( $this, 'format_order_item_deposit_data' ), 20, 2 );
 		add_action( 'add_meta_boxes', array( $this, 'deposit_metabox' ), 20, 2 );
 		add_action( 'woocommerce_after_order_details', array( $this, 'customer_deposit_details' ), 20, 1 );
 		add_action( 'woocommerce_order_details_after_order_table', array( $this, 'woocommerce_order_again_button' ), 10, 1 );
@@ -46,9 +45,12 @@ class Order {
 		add_filter( 'woocommerce_admin_order_preview_get_order_details', array( $this, 'add_deposit_details' ), 10, 2 );
 		add_action( 'woocommerce_trash_order', array( $this, 'trash_deposit_orders' ), 20, 1 );
 		add_action( 'woocommerce_untrash_order', array( $this, 'untrash_deposit_orders' ), 20, 1 );
+		add_action( 'wp_ajax_bayna_remove_deposit', array( $this, 'bayna_remove_deposit_callback' ) );
+		add_action( 'wp_ajax_bayna_update_deposit_order', array( $this, 'bayna_update_deposit_order_callback' ) );
+		add_action( 'woocommerce_order_item_add_action_buttons', array( $this, 'add_action_buttons' ), 10, 1 );
 	}
 	/**
-	 * add depsoit data into teh array for display
+	 * add deposit data into the array for display
 	 * as preview
 	 *
 	 * @param $data
@@ -229,73 +231,27 @@ class Order {
 		<?php
 	}
 	/**
-	 * Add order backend table headers
+	 * Format order item deposit data.
 	 *
-	 * @param  object $order
-	 * @return void
-	 */
-	public function admin_order_items_headers( $order ) {
-
-		if ( bayna_is_deposit( $order->get_id() ) == false ) {
-			return;
-		}
-		?>
-		<th class="line-deposit sortable" data-sort="float"><?php esc_html_e( 'Deposit', 'deposits-for-woocommerce' ); ?></th>
-		<th class="line-due-paymnet sortable" data-sort="float"><?php esc_html_e( 'Due', 'deposits-for-woocommerce' ); ?></th>
-		<?php
-	}
-
-	/**
-	 * Display Order backendend deposit value
+	 * @param  array                 $formatted_meta
+	 * @param  WC_Order_Item_Product $item
 	 *
-	 * @param  object $product
-	 * @param  array  $item
-	 * @param  int    $item_id
-	 * @return void
+	 * @return array
 	 */
-	public function admin_order_items_values( $product, $item, $item_id ) {
+	public function format_order_item_deposit_data( $formatted_meta, $item ) {
 
-		if ( null == $product ) {
-			// fix fatal error if order change to refund
-			echo '<td class="item_cost" width="1%">&nbsp;</td><td class="quantity" width="1%">&nbsp;</td>';
+		foreach ( $formatted_meta as $key => $meta ) {
 
-			return;
+			if ( $meta->key == '_deposit' ) {
+				$meta->display_value = wc_price( $meta->value, array( 'currency' => $item->get_order()->get_currency() ) );
+				$meta->display_key   = __( 'Deposit Amount', 'deposits-for-woocommerce' );
+
+			} elseif ( $meta->key == '_due_payment' ) {
+				$meta->display_key   = __( 'Due Amount', 'deposits-for-woocommerce' );
+				$meta->display_value = wc_price( $meta->value, array( 'currency' => $item->get_order()->get_currency() ) );
+			}
 		}
-		$depositValue = $item['_deposit'];
-		$dueValue     = $item['_due_payment'];
-
-		if ( null == $depositValue ) {
-			return;
-		}
-		?>
-
-		<td class="line-deposit" width="1%">
-
-			<?php if ( $product && $depositValue ) { ?>
-				<div class="view">
-					<?php echo wc_price( $depositValue ); ?>
-				</div>
-				<div class="edit" style="display: none;">
-					<input type="text" disabled="disabled" name="deposit[<?php echo absint( $item_id ); ?>]"
-							placeholder="<?php echo wc_format_localized_price( 0 ); ?>" value="<?php echo round( $depositValue, wc_get_price_decimals() ); ?>"
-							class=" wc_input_price" data-total="<?php echo round( $depositValue, wc_get_price_decimals() ); ?>"/>
-				</div>
-			<?php } ?>
-		</td>
-		<td class="deposit-due-paymnet" width="1%">
-
-			<?php if ( $product && $depositValue ) { ?>
-				<div class="view">
-					<?php echo wc_price( $dueValue ); ?>
-				</div>
-				<div class="edit" style="display: none;">
-					<input type="text" disabled="disabled" name="due_payment[<?php echo absint( $item_id ); ?>]"
-							placeholder="<?php echo wc_format_localized_price( 0 ); ?>" value="<?php echo round( $dueValue, wc_get_price_decimals() ); ?>"
-							class="due_payment wc_input_price" data-total="<?php echo round( $dueValue, wc_get_price_decimals() ); ?>"/>
-				</div>
-			<?php } ?>
-		</td>
-		<?php
+			return $formatted_meta;
 	}
 
 	/**
@@ -417,5 +373,191 @@ class Order {
 				wp_untrash_post( $deposit->get_id() );
 			}
 		}
+	}
+	/**
+	 * Add deposit action buttons for the order.
+	 *
+	 * @param  WC_Order $order
+	 */
+	public function add_action_buttons( $order ) {
+		if ( $order->is_editable() ) :
+
+			?>
+			<div id="deposit-edit-wrapper" class="modal" style="max-width:500px">
+				<?php
+				\CSF::$enqueue = true;
+				\CSF::add_admin_enqueue_scripts();
+				echo '<div class="csf-onload">';
+
+				/**
+				 *  @field
+				 *  @value
+				 *  @unique
+				*/
+
+				\CSF::field(
+					array(
+						'id'       => 'order_deposits_type',
+						'type'     => 'select',
+						'title'    => 'Deposit Type',
+						'options'  => array(
+							'fixed'      => 'Fixed',
+							'percentage' => 'Percentage',
+							'plans'      => 'Payment Plans',
+
+						),
+						'settings' => array(
+							'width' => '50%',
+						),
+
+					),
+					'fixed'
+				);
+					\CSF::field(
+						array(
+							'id'         => 'order_deposit_value',
+							'type'       => 'number',
+							'title'      => 'Deposits Value',
+
+							'dependency' => array( 'order_deposits_type', '!=', 'plans' ),
+
+							'desc'       => 'The deposit amount should not exceed 99% for percentage deposits or surpass the total order amount for fixed deposits.',
+						),
+						'',
+					);
+					\CSF::field(
+						array(
+							'type'       => 'notice',
+							'style'      => 'danger',
+							'content'    => __( 'Payment Plans are only available for Premium Version.', 'deposits-for-woocommerce' ),
+							'dependency' => array( 'order_deposits_type', '==', 'plans' ),
+
+						),
+						'',
+					);
+
+				echo '<button type="button" id="update-deposit-order" data-order-id="' . esc_attr( $order->get_id() ) . '" class="button button-primary">Update Order</button></div>';
+				?>
+				
+			</div>
+			<a href="#deposit-edit-wrapper" data-order-id="<?php echo esc_attr( $order->get_id() ); ?>" class="button button-primary calculate-deposit-action"><?php esc_html_e( 'Recalculate Deposit', 'deposits-for-woocommerce' ); ?></a>
+			
+			<?php
+		endif;
+		if ( $order->get_meta( '_deposit_value' ) ) {
+			?>
+			<button type="button" data-order-id="<?php echo esc_attr( $order->get_id() ); ?>" class="button remove-deposit-action"><?php esc_html_e( 'Remove Deposit', 'deposits-for-woocommerce' ); ?></button>
+			<?php
+		}
+	}
+	public function bayna_remove_deposit_callback() {
+		if ( ! DOING_AJAX ) {
+			wp_die();
+		} // Not Ajax
+
+		// Check for nonce security
+		$nonce = $_POST['nonce'];
+
+		$order_id = absint( $_POST['order_id'] );
+
+		if ( ! wp_verify_nonce( $nonce, 'deposit_admin_nonce' ) ) {
+			wp_die( 'oops! nonce error' );
+		}
+		$order = wc_get_order( $order_id );
+
+		if ( $order->get_meta( '_deposit_value' ) ) {
+
+			$order->delete_meta_data( '_deposit_value' );
+			$order->delete_meta_data( '_order_due_ammount' );
+			$order->delete_meta_data( '_payment_plan_id' );
+			$order->delete_meta_data( '_genarate_deposit_orders' );
+			$order->delete_meta_data( '_checkout_mode' );
+			$order->calculate_totals();
+			foreach ( $order->get_items() as $item_id => $item ) {
+				$item->delete_meta_data( '_deposit' );
+				$item->delete_meta_data( '_due_payment' );
+				$item->delete_meta_data( '_payment_plan_id' );
+				$item->save();
+			}
+			$args         = array(
+				'type'   => 'shop_deposit',
+				'parent' => $order_id,
+			);
+			$child_orders = wc_get_orders( $args );
+			foreach ( $child_orders as $child_order ) {
+				$child_order->delete( true ); // Force delete child deposit orders
+			}
+			$order->add_order_note( __( 'Deposit removed.', 'deposits-for-woocommerce' ), false, true );
+			$order->save();
+		}
+		$data = array(
+			'order_id' => $order_id,
+		);
+
+		wp_send_json_success( $data );
+		// RIP
+		wp_die();
+	}
+	public function bayna_update_deposit_order_callback() {
+		if ( ! DOING_AJAX ) {
+			wp_die();
+		} // Not Ajax
+
+		// Check for nonce security
+		$nonce = $_POST['nonce'];
+
+		$order_id      = absint( $_POST['order_id'] );
+		$deposit_type  = sanitize_text_field( $_POST['deposit_type'] );
+		$deposit_value = sanitize_text_field( $_POST['deposit_value'] );
+
+		if ( ! wp_verify_nonce( $nonce, 'deposit_admin_nonce' ) ) {
+			wp_die( 'oops! nonce error' );
+		}
+		$order = wc_get_order( $order_id );
+
+		if ( $deposit_type == 'fixed' && $deposit_value > 0 ) {
+
+			$order->update_meta_data( '_deposit_value', $deposit_value );
+			$due_ammount = $order->get_total() - $order->get_meta( '_deposit_value' );
+			$order->update_meta_data( '_order_due_ammount', $due_ammount, true );
+
+		} elseif ( $deposit_type == 'percentage' && $deposit_value > 0 ) {
+
+			$due_ammount   = $order->get_total() - ( $order->get_total() * ( $deposit_value / 100 ) );
+			$deposit_value = $order->get_total() * ( $deposit_value / 100 );
+			$order->update_meta_data( '_deposit_value', $deposit_value );
+			$order->update_meta_data( '_order_due_ammount', $due_ammount, true );
+
+		} else {
+			wp_send_json_error( __( 'Invalid deposit update request.', 'deposits-for-woocommerce' ) );
+		}
+		// Add order note for deposit updates
+
+			$order->add_order_note(
+				sprintf(
+					/* translators: 1: deposit type 2: deposit amount 3: due amount */
+					__( 'Deposit updated - Type: %1$s, Deposit amount: %2$s, Due amount: %3$s', 'deposits-for-woocommerce' ),
+					ucfirst( $deposit_type ),
+					wc_price( $deposit_value ),
+					wc_price( $due_ammount )
+				),
+				false,
+				true
+			);
+
+		$order->save();
+		Checkout::init()->manage_deposit_orders( $order_id );
+
+		wp_send_json_success(
+			sprintf(
+				/* translators: 1: deposit amount 2: due amount */
+				__( 'Deposit updated - Deposit amount: %1$s, Due amount: %2$s. Page will reload in 3 seconds.', 'deposits-for-woocommerce' ),
+				wc_price( $deposit_value ),
+				wc_price( $due_ammount )
+			),
+		);
+
+		// RIP
+		wp_die(); // lol, json call it by default
 	}
 }
