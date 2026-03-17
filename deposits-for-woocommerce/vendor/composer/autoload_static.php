@@ -13,14 +13,14 @@ class ComposerStaticInit0736ef2467e3dcdd64f28a7a85c469b2
     );
 
     public static $prefixLengthsPsr4 = array (
-        'D' => 
+        'D' =>
         array (
             'Deposits_WooCommerce\\' => 21,
         ),
     );
 
     public static $prefixDirsPsr4 = array (
-        'Deposits_WooCommerce\\' => 
+        'Deposits_WooCommerce\\' =>
         array (
             0 => __DIR__ . '/../..' . '/src',
         ),

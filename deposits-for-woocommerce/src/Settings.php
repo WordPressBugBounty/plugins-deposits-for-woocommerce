@@ -164,12 +164,24 @@ class Settings {
 						'label' => 'Override shop products by percentage of amount.',
 
 					),
+					array(
+						'id'         => 'global_deposits_type',
+						'type'       => 'select',
+						'title'      => 'Deposit Type',
+						'options'    => array(
+							'fixed'      => 'Fixed',
+							'percentage' => 'Percentage',
+							// 'plans'      => 'Payment Plans',
 
+						),
+						'default'    => 'percentage',
+						'dependency' => array( 'global_deposits_mode', '==', 'true' ),
+					),
 					array(
 						'id'         => 'global_deposits_value',
 						'type'       => 'number',
 						'title'      => 'Deposits Value',
-						'desc'       => 'Enter the percentage value for deposit.',
+						'desc'       => 'Enter the value for deposit.',
 						'default'    => '50',
 						'dependency' => array( 'global_deposits_mode', '==', 'true' ),
 					),

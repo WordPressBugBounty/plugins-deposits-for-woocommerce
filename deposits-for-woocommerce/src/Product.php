@@ -174,7 +174,12 @@ class Product {
 			$deposit_value = apply_filters( 'deposits_value', get_post_meta( $vProductId, '_deposits_value', true ) );
 
 			$product = wc_get_product( $vProductId );
-			$value   = ( $deposit_value / 100 ) * $product->get_price();
+			if ( cidw_get_option( 'global_deposits_type' ) == 'fixed' ) {
+				$value = $deposit_value;
+			} else {
+				$value = ( $deposit_value / 100 ) * $product->get_price();
+
+			}
 
 			$cart_item_data['_deposit']      = $value;
 			$cart_item_data['_due_payment']  = $product->get_price() - $value;

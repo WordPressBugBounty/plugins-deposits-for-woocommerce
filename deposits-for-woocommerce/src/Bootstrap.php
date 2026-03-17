@@ -234,6 +234,9 @@ class Bootstrap {
 			add_filter(
 				'deposits_type',
 				function ( $value ) {
+					if ( cidw_get_option( 'global_deposits_type' ) == 'fixed' ) {
+						return 'fixed';
+					}
 					return 'percent';
 				}
 			);
