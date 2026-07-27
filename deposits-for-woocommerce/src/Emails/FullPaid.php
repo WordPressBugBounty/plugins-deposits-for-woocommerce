@@ -113,7 +113,7 @@ if ( ! class_exists( 'FullPaid' ) ) :
 		 * @return string
 		 */
 		public function get_default_email_text() {
-			return __( 'All deposit payments are paid for this order.' );
+			return __( 'All deposit payments are paid for this order.', 'deposits-for-woocommerce' );
 		}
 		/**
 		 * Get content plain.

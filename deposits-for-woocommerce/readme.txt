@@ -2,9 +2,9 @@
 Contributors: codeixer,im_niloy
 Tags: deposit, woocommerce deposits, partial payment,WooCommerce
 Requires at least: 4.9
-Tested up to: 6.9
+Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.4.2
+Stable tag: 1.4.3
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -165,6 +165,14 @@ you can easily override the labels and texts from deposit settings.
 
 
 == Changelog ==
+
+= 1.4.3 [28 Jul 2026] =
+
+* Fixed: Resolved a conflict with the WooCommerce PayPal Payments plugin where the deposit amount was not correctly overriding the PayPal payment amount.
+* Improved: Added the `deposits-for-woocommerce` text-domain to the Full Paid email default string to ensure it is properly namespaced for translations.
+* Fixed: Prevented a fatal error that could occur when deposit data was missing.
+* Compatibility with WooCommerce 10.9.x
+
 
 = 1.4.2 [18 Mar 2026] =
 

@@ -1,22 +1,22 @@
-# Copyright (C) 2025 Codeixer
-# This file is distributed under the same license as the Deposits & Partial Payments for WooCommerce – Bayna plugin.
+# Copyright (C) 2026 Codeixer
+# This file is distributed under the same license as the Deposits & Partial Payments for WooCommerce - Bayna plugin.
 msgid ""
 msgstr ""
-"Project-Id-Version: Deposits & Partial Payments for WooCommerce – Bayna 1.4\n"
+"Project-Id-Version: Deposits & Partial Payments for WooCommerce - Bayna 1.4.2\n"
 "Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/deposits-for-woocommerce\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2025-10-28T14:45:20+00:00\n"
+"POT-Creation-Date: 2026-05-08T14:48:24+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: deposits-for-woocommerce\n"
 
 #. Plugin Name of the plugin
 #: deposits-for-woocommerce.php
-msgid "Deposits & Partial Payments for WooCommerce – Bayna"
+msgid "Deposits & Partial Payments for WooCommerce - Bayna"
 msgstr ""
 
 #. Plugin URI of the plugin
@@ -60,7 +60,7 @@ msgstr ""
 #: includes/functions.php:40
 #: includes/functions.php:41
 #: src/Cart.php:212
-#: src/Checkout.php:490
+#: src/Checkout.php:489
 #: src/Order.php:278
 #: src/Order.php:327
 msgid "Due Payment:"
@@ -70,57 +70,57 @@ msgstr ""
 msgid "Available in PRO"
 msgstr ""
 
-#: src/Bootstrap.php:328
+#: src/Bootstrap.php:329
 #: src/Order.php:159
 msgid "Deposit Payments"
 msgstr ""
 
-#: src/Bootstrap.php:329
+#: src/Bootstrap.php:330
 msgctxt "Admin menu name"
 msgid "Deposit Payments"
 msgstr ""
 
-#: src/Bootstrap.php:330
+#: src/Bootstrap.php:331
 #: src/Integrations/Wcmp.php:116
 #: src/Order.php:195
 #: src/Order.php:301
-#: src/Product.php:526
+#: src/Product.php:531
 #: templates/order/deposit-summary.php:46
 msgid "Deposit"
 msgstr ""
 
-#: src/Bootstrap.php:331
+#: src/Bootstrap.php:332
 msgctxt "custom post type setting"
 msgid "Edit Deposit"
 msgstr ""
 
-#: src/Bootstrap.php:332
+#: src/Bootstrap.php:333
 msgctxt "custom post type setting"
 msgid "New Deposit"
 msgstr ""
 
-#: src/Bootstrap.php:333
 #: src/Bootstrap.php:334
+#: src/Bootstrap.php:335
 msgctxt "custom post type setting"
 msgid "View Deposit"
 msgstr ""
 
-#: src/Bootstrap.php:335
+#: src/Bootstrap.php:336
 msgid "Search Deposit"
 msgstr ""
 
-#: src/Bootstrap.php:337
+#: src/Bootstrap.php:338
 msgid "This is where store Deposit Payments are stored."
 msgstr ""
 
-#: src/Bootstrap.php:376
-#: src/Bootstrap.php:393
+#: src/Bootstrap.php:377
+#: src/Bootstrap.php:394
 msgctxt "Order status"
 msgid "Deposit Payment"
 msgstr ""
 
 #. translators: %s: number of orders
-#: src/Bootstrap.php:382
+#: src/Bootstrap.php:383
 #, php-format
 msgid "Deposit Payment <span class=\"count\">(%s)</span>"
 msgid_plural "Deposit Payment <span class=\"count\">(%s)</span>"
@@ -128,7 +128,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #: src/Cart.php:212
-#: src/Checkout.php:490
+#: src/Checkout.php:489
 #: src/Order.php:327
 msgid "Deposit:"
 msgstr ""
@@ -152,8 +152,6 @@ msgstr ""
 
 #: src/DepositColums.php:153
 #: src/Order.php:187
-#: assets/js/cart-blocks-free.js:526
-#: assets/js/checkout-blocks-free.js:198
 msgid "Total"
 msgstr ""
 
@@ -335,6 +333,10 @@ msgstr ""
 msgid "Deposit Full Paid: #{order_number}"
 msgstr ""
 
+#: src/Emails/FullPaid.php:116
+msgid "All deposit payments are paid for this order."
+msgstr ""
+
 #: src/Emails/FullPaid.php:164
 #: src/Emails/NewDeposit.php:154
 msgid "Recipient(s)"
@@ -364,21 +366,21 @@ msgid "Congratulations on the Deposit."
 msgstr ""
 
 #: src/Integrations/Wcmp.php:67
-#: src/Product.php:572
-#: src/Product.php:623
+#: src/Product.php:577
+#: src/Product.php:628
 msgid "Fixed Amount"
 msgstr ""
 
 #: src/Integrations/Wcmp.php:68
-#: src/Product.php:571
-#: src/Product.php:622
+#: src/Product.php:576
+#: src/Product.php:627
 msgid "Percentage of Amount"
 msgstr ""
 
 #: src/Integrations/Wcmp.php:76
-#: src/Product.php:545
-#: src/Product.php:558
-#: src/Product.php:610
+#: src/Product.php:550
+#: src/Product.php:563
+#: src/Product.php:615
 msgid "Enable Deposit"
 msgstr ""
 
@@ -449,43 +451,43 @@ msgstr ""
 msgid "Deposit removed."
 msgstr ""
 
-#: src/Order.php:533
+#: src/Order.php:532
 msgid "Invalid deposit update request."
 msgstr ""
 
 #. translators: 1: deposit type 2: deposit amount 3: due amount
-#: src/Order.php:540
+#: src/Order.php:539
 #, php-format
 msgid "Deposit updated - Type: %1$s, Deposit amount: %2$s, Due amount: %3$s"
 msgstr ""
 
 #. translators: 1: deposit amount 2: due amount
-#: src/Order.php:555
+#: src/Order.php:554
 #, php-format
 msgid "Deposit updated - Deposit amount: %1$s, Due amount: %2$s. Page will reload in 3 seconds."
 msgstr ""
 
-#: src/Product.php:547
+#: src/Product.php:552
 msgid "Enable deposit feature for this Variable product. <a href=\"https://www.codeixer.com/docs/how-to-enable-deposit-partial-payment-feature-for-product/\" target=\"_blank\">Learn more</a>"
 msgstr ""
 
-#: src/Product.php:560
-#: src/Product.php:612
+#: src/Product.php:565
+#: src/Product.php:617
 msgid "Enable deposits feature for this product."
 msgstr ""
 
-#: src/Product.php:568
-#: src/Product.php:619
+#: src/Product.php:573
+#: src/Product.php:624
 msgid "Deposit type"
-msgstr ""
-
-#: src/Product.php:580
-#: src/Product.php:631
-msgid "Deposit Value *"
 msgstr ""
 
 #: src/Product.php:585
 #: src/Product.php:636
+msgid "Deposit Value *"
+msgstr ""
+
+#: src/Product.php:590
+#: src/Product.php:641
 msgid "Enter the value for deposit. only number allow."
 msgstr ""
 
@@ -552,31 +554,4 @@ msgstr ""
 
 #: templates/order/deposit-summary.php:72
 msgid "Make Payment"
-msgstr ""
-
-#: assets/js/cart-blocks-free.js:500
-msgid "Loading deposit information..."
-msgstr ""
-
-#: assets/js/cart-blocks-free.js:510
-#: assets/js/checkout-blocks-free.js:182
-msgid "Deposit Summary"
-msgstr ""
-
-#: assets/js/cart-blocks-free.js:515
-#: assets/js/checkout-blocks-free.js:187
-msgid "Total Deposit:"
-msgstr ""
-
-#: assets/js/cart-blocks-free.js:521
-#: assets/js/checkout-blocks-free.js:193
-msgid "Total Due:"
-msgstr ""
-
-#: assets/js/checkout-blocks-free.js:172
-msgid "Loading payment options..."
-msgstr ""
-
-#: assets/js/checkout-blocks-free.js:204
-msgid "You will pay the deposit amount now. The remaining balance will be collected separately."
 msgstr ""

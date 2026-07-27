@@ -120,16 +120,16 @@ class Bootstrap {
 	public function plugin_template( $template, $template_name, $template_path ) {
 		global $wp;
 
-		$deposit_id = null;
 
 		if ( 'checkout/form-pay.php' === $template_name ) {
 
-			$order_id   = absint( $wp->query_vars['order-pay'] ); // The order ID
-			$order      = wc_get_order( $order_id );
-			$deposit_id = $order->get_meta( '_deposit_id' );
+			$order_id = absint( $wp->query_vars['order-pay'] ); // The order ID
+			$order    = wc_get_order( $order_id );
+
 			if ( ! $order ) {
 				return $template;
 			}
+			$deposit_id = $order->get_meta( '_deposit_id' );
 			if ( ! empty( $deposit_id ) ) {
 				$template = CIDW_DEPOSITS_PATH . '/templates/checkout/form-pay.php';
 			}

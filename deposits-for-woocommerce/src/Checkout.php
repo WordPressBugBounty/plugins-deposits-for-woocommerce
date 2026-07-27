@@ -47,7 +47,67 @@ class Checkout {
 		// Add blocks checkout processing with proper logic validation
 		add_action( 'woocommerce_store_api_checkout_update_order_meta', array( $this, 'process_blocks_checkout' ), 10, 1 );
 
+		// Override PayPal amount for deposit orders to avoid CANNOT_BE_NEGATIVE.
+		add_filter( 'ppcp_create_order_request_body_data', array( $this, 'filter_paypal_amount_for_deposit' ), 10, 3 );
+
 		do_action( 'wc_deposit_checkout', $this );
+	}
+
+	/**
+	 * Override PayPal amount for deposit orders.
+	 *
+	 * PayPal rejects the order with CANNOT_BE_NEGATIVE when the breakdown
+	 * (item_total + tax + shipping - discount) doesn't match the total
+	 * after proportional scaling. We override the amount directly and
+	 * remove the breakdown/items so PayPal only sees the deposit total.
+	 *
+	 * Checkout context: WC order doesn't exist yet, read from cart session.
+	 * Pay-now context: WC order exists, read from order meta.
+	 *
+	 * @param array    $data           The PayPal order request body.
+	 * @param string   $payment_method The payment method ID.
+	 * @param array    $request_data   Additional request data.
+	 *
+	 * @return array Modified request body.
+	 */
+	public function filter_paypal_amount_for_deposit( $data, $payment_method, $request_data ) {
+		if ( empty( $data['purchase_units'][0] ) ) {
+			return $data;
+		}
+
+		$deposit_value = 0;
+
+		// Try order meta first (pay-now context where WC order already exists).
+		$custom_id = $data['purchase_units'][0]['custom_id'] ?? '';
+		if ( $custom_id && is_numeric( $custom_id ) && (int) $custom_id > 0 ) {
+			$order = wc_get_order( (int) $custom_id );
+			if ( $order ) {
+				$deposit_value = (float) $order->get_meta( '_deposit_value' );
+			}
+		}
+
+		// Fallback to cart session (checkout/blocks context — no WC order yet).
+		if ( $deposit_value <= 0 && WC()->session ) {
+			$deposit_value = (float) WC()->session->get( 'bayna_cart_deposit_amount', 0 );
+		}
+
+		if ( $deposit_value <= 0 ) {
+			return $data;
+		}
+
+		$currency = get_woocommerce_currency();
+		$decimals = in_array( $currency, array( 'HUF', 'JPY', 'TWD' ), true ) ? 0 : 2;
+
+		// Override the total amount with the deposit value.
+		$data['purchase_units'][0]['amount']['value'] = number_format( $deposit_value, $decimals, '.', '' );
+
+		// Remove the breakdown — it no longer sums correctly after scaling.
+		unset( $data['purchase_units'][0]['amount']['breakdown'] );
+
+		// Remove items — their unit_amounts no longer match the new total.
+		unset( $data['purchase_units'][0]['items'] );
+
+		return $data;
 	}
 
 	/**
