@@ -4,7 +4,7 @@ Tags: deposit, woocommerce deposits, partial payment,WooCommerce
 Requires at least: 4.9
 Tested up to: 7.1
 Requires PHP: 7.4
-Stable tag: 1.4.3
+Stable tag: 1.4.4
 License: GPLv2 or later
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -165,6 +165,10 @@ you can easily override the labels and texts from deposit settings.
 
 
 == Changelog ==
+
+= 1.4.4 [7 Sep 2026] =
+
+* Fixed: Fatal error occurs when sending the customer’s completed order email.
 
 = 1.4.3 [28 Jul 2026] =
 

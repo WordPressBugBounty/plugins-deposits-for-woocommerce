@@ -123,7 +123,10 @@ class Bootstrap {
 
 		if ( 'checkout/form-pay.php' === $template_name ) {
 
-			$order_id = absint( $wp->query_vars['order-pay'] ); // The order ID
+			$order_id = isset( $wp->query_vars['order-pay'] ) ? absint( $wp->query_vars['order-pay'] ) : 0; // The order ID
+			if ( ! $order_id ) {
+				return $template;
+			}
 			$order    = wc_get_order( $order_id );
 
 			if ( ! $order ) {
