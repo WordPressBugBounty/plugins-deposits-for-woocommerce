@@ -6,7 +6,7 @@
  * Plugin Name:       Deposits & Partial Payments for WooCommerce - Bayna
  * Plugin URI:        https://wordpress.org/plugins/deposits-for-woocommerce/
  * Description:       Enable customers to pay for products using a deposit or a partial payment.
- * Version:           1.4.4
+ * Version:           1.4.4.1
  * Author:            Codeixer
  * Author URI:        https://codeixer.com
  * Text Domain:       deposits-for-woocommerce
